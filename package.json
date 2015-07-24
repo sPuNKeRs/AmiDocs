@@ -1,0 +1,26 @@
+{
+  "name": "amidocs",
+  "description": "Amidocs - система электронного документооборота",
+  "version": "0.0.1",
+  "private": false,
+  "author": "PuNKeR",
+  "engines": {
+    "node": ">=0.12.7",
+    "npm": ">=2.11.3"
+  },
+  "scripts": {
+    "start": "grunt",
+    "postinstall": "bower install --config.interactive=false"
+  },
+  "dependencies": {
+    "chalk": "^1.1.0",
+    "glob": "^5.0.14",
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-reload": "^0.2.0",
+    "grunt-supervisor": "^0.2.4",
+    "lodash": "^3.10.0",
+    "mongoose": "^4.0.8"
+  },
+  "devDependencies": {}
+}
