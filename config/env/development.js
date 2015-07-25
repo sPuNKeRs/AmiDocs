@@ -22,6 +22,8 @@ module.exports = {
 		}
 	},
 	app: {
-		title: 'Amidocs - система электронного документооборота'
+		title: 'Amidocs',
+		description: 'Amidocs - система электронного документооборота',
+		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'		
 	}
 };
