@@ -44,7 +44,7 @@ module.exports = {
 				'public/lib/angular-resource/angular-resource.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
-				'public/lib/angular-ui-utils/modules/utils.js',
+				//'public/lib/angular-ui-utils/modules/utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 			]
 		},
@@ -54,7 +54,8 @@ module.exports = {
 		js: [
 			'public/config.js',
 			'public/application.js',
-			'public/modules/*/*.js'			
+			'public/modules/*/*.js',
+			'public/modules/*/*[!tests]*/*.js'			
 		]
 	}
 };
