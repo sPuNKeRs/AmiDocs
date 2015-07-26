@@ -8,9 +8,13 @@
 
  exports.signin = passport.authenticate('local');
 
- exports.signout = function(req, res){
- 	req.logOut();
-	res.sendStatus(200);
- };
+exports.checkAuth = auth;
 
- exports.checkAuth = auth;
+exports.signout = function(req, res){
+	req.logOut();
+	res.sendStatus(200);
+};
+
+exports.loggedin = function(req, res){
+	res.send(req.isAuthenticated() ? req.user : '0');
+};

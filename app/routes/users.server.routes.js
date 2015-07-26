@@ -15,8 +15,11 @@
  	// Выход пользователя
  	app.route('/signout').post(users.signout);
 
- 	// Тест
- 	app.route('/test').post(users.checkAuth, function(req, res){
- 		console.log('URAAA!!!')
- 	});
+ 	// Проверка состояния пользователя
+ 	app.route('/loggedin').get(users.loggedin);
+
+ 	// // Тест
+ 	// app.route('/test').post(users.checkAuth, function(req, res){
+ 	// 	res.status(200).send('Test page!');
+ 	// });
  };
