@@ -17,9 +17,7 @@ var chalk 	 = require('chalk'); // Модуль для расскраски те
 var db = mongoose.connect(config.db.uri, config.db.options, function(err){
 	if(err){
 		console.error(chalk.red('Ошибка подключение к MongoDB!'));
-	}else{
-		console.log(chalk.green('Соединенте с базой данных устрановлено...'));
-	}	
+	}
 });
 mongoose.connection.on('error', function(err){
 	console.error(chalk.red('Ошибка соединиения с MongoDB: ' + err));
@@ -28,9 +26,6 @@ mongoose.connection.on('error', function(err){
 
 // Инициализация EXPRESS
 var app = require('./config/express')(db);
-
-// Настройка PassportJS
-require('./config/passport')();
 
 // Запускаем приложение на порту <port>
 app.listen(config.port);

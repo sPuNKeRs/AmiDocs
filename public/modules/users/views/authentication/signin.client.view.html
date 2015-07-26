@@ -1,0 +1,10 @@
+<form class="form-signin" ng-submit="login()">
+  <h2 class="form-signin-heading">Вход в систему</h2>
+  <input type="text" class="input-block-level" ng-model="user.userLogin" placeholder="Логин">
+  <input type="password" class="input-block-level" ng-model="user.password" placeholder="Пароль">
+  <label class="checkbox">
+    <input type="checkbox" value="remember-me"> Запомнить меня
+  </label>
+  <button class="btn btn-large btn-primary" type="submit">Войти</button>
+ <p class="help-block">{{message}}</p>
+</form>
