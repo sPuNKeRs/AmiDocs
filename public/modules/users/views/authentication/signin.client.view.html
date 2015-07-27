@@ -1,12 +1,15 @@
 <div ng-controller="AuthenticationController">
-	<form class="form-signin" ng-submit="login()">
+	<form name="formSignin" class="form-signin" ng-submit="signin()">
 	  <h2 class="form-signin-heading">Вход в систему</h2>
-	  <input type="text" class="input-block-level" ng-model="user.userLogin" placeholder="Логин">
-	  <input type="password" class="input-block-level" ng-model="user.userPassword" placeholder="Пароль">
+	  <input type="text" class="input-block-level" 
+	  			ng-model="credentials.userLogin" placeholder="Логин" required />
+	  <input type="password" class="input-block-level" 
+	  			ng-model="credentials.userPassword" placeholder="Пароль" required />
 	  <label class="checkbox">
 	    <input type="checkbox" value="remember-me"> Запомнить меня
 	  </label>
-	  <button class="btn btn-large btn-primary" type="submit">Войти</button>
-	 <p class="help-block">{{message}}</p>
+	  <button class="btn btn-large btn-primary" 
+	  			type="submit" ng-disabled="formSignin.$invalid">Войти</button>
+	 <p class="help-block">{{message}}</p>	 
 	</form>
 </div>

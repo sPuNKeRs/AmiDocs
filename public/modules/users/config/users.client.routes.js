@@ -9,7 +9,20 @@ angular.module('users').config(['$stateProvider', '$locationProvider', '$httpPro
 		url: '/signin',
 		templateUrl: 'modules/users/views/authentication/signin.client.view.html'
 			
+	}).state('user',{
+		url: "/user/:id",
+		templateUrl: 'modules/users/views/profile/profile.client.view.html',
+		resolve:{
+			loggedin: function(Authentication){
+				return Authentication.checkLoggedin();
+			}	
+		}	
 	});
-}]).run(function($location){
-
+}]).run(function($rootScope, $http, $state){
+	// logout функция доступна для всех страниц
+    $rootScope.signout = function(){
+        $http.post('/signout').success(function(){
+        	$state.go('signin');
+        });       
+    };
 });

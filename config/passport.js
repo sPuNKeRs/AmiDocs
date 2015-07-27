@@ -20,6 +20,7 @@ module.exports = function(){
 	  function(userLogin, userPassword, done) {
 	    User.authorize(userLogin, userPassword, function(err, user){
 	      if(err){
+	      	console.log('!!!'+err);
 	        return done(null, false, { message: 'Неверный логин или пароль.' });
 	      }else{
 	        user.salt = undefined;

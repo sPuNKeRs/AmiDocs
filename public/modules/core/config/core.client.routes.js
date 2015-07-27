@@ -36,4 +36,11 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$httpPro
 		}
 		});
 	}
-]);
+]).run(function($rootScope, $location){
+	// Пометить активную ссылку в меню
+	$rootScope.$on('$stateChangeStart', function(){
+		$rootScope.isActive = function(viewLocation){
+			return viewLocation === $location.path();
+		}
+	});
+});
