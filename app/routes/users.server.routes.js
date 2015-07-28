@@ -20,5 +20,8 @@
  	app.route('/signout').post(users.signout);
 
  	// Проверка состояния пользователя
- 	app.route('/loggedin').get(users.loggedin); 	
+ 	app.route('/loggedin').get(users.loggedin);
+
+ 	// Получить список всех пользователей
+ 	app.route('/user').get(users.usersList);
  };

@@ -1,6 +1,6 @@
 'use sctrict';
 
-angular.module('users').service('Authentication', ['$q', '$http', '$location','$rootScope','$state',
+angular.module('Users').service('Authentication', ['$q', '$http', '$location','$rootScope','$state',
 	function Authentication($q, $http, $location, $rootScope, $state){
 	return {
 		checkLoggedin: function(){

@@ -1,7 +1,7 @@
 'use strict';
 
 // Настраиваем маршруты
-angular.module('users').config(['$stateProvider', '$locationProvider', '$httpProvider', 
+angular.module('Users').config(['$stateProvider', '$locationProvider', '$httpProvider', 
 	function($stateProvider, $locationProvider, $httpProvider){
 	
 	// Маршруты модуля Users

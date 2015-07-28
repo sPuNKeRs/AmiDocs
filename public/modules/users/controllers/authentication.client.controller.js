@@ -1,6 +1,6 @@
 'use srict';
 
-angular.module('users').controller('AuthenticationController', 
+angular.module('Users').controller('AuthenticationController', 
 		['$scope', '$http', '$location', 'Authentication', '$state',
 	function AuthenticationController($scope, $http, $location, Authentication, $state){
 		// Инициализиция переменных
