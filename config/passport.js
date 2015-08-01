@@ -18,9 +18,10 @@ module.exports = function(){
 	  passwordField: 'userPassword'
 	},
 	  function(userLogin, userPassword, done) {
+	  		
 	    User.authorize(userLogin, userPassword, function(err, user){
 	      if(err){
-	      	console.log('!!!'+err);
+	      	console.log('Ошибка авторизации: ' + err);
 	        return done(null, false, { message: 'Неверный логин или пароль.' });
 	      }else{
 	        user.salt = undefined;

@@ -18,7 +18,19 @@
       </ul>      
       <ul class="nav navbar-nav navbar-right">
         <li ng-class="{ active: isActive('/user/'+loggedUser.userId)}"><a href="#!/user/{{loggedUser.userId}}">{{loggedUser.name}}</a></li>
-        <li ui-route="/signout"><a href="#" ng-click="signout()">Выйти</a></li>         
+        <!-- Single button with keyboard nav -->
+        <li dropdown keyboard-nav>
+            <a href="#" dropdown-toggle>
+                Настройки <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                <li role="menuitem"><a href="#!/">Главная</a></li>
+                <li role="menuitem"><a href="#!/user/{{loggedUser.userId}}">Профиль</a></li>
+                <li role="menuitem"><a href="#">Тест</a></li>
+                <li class="divider"></li>
+                <li role="menuitem" ui-route="/signout"><a href="#" ng-click="signout()">Выйти</a></li>
+            </ul>
+        </li>                 
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

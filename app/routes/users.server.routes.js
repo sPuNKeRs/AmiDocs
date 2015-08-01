@@ -23,5 +23,12 @@
  	app.route('/loggedin').get(users.loggedin);
 
  	// Получить список всех пользователей
- 	app.route('/user').get(users.usersList);
+ 	app.route('/user').get(users.checkAuth, users.usersList);
+
+ 	// Получить пользователя по ID
+	app.route('/user/:id').get(users.checkAuth, users.getUserById); 	
+
+	// Обновление данных пользователя
+	app.route('/user').put(users.checkAuth, users.update);
+
  };
