@@ -34,18 +34,5 @@
  // Изменить данные пользователя
  exports.update = function(req, res){
  	var userId = req.user.userId;
- 	console.log(userId);
- 	var newLogin = "PuNKeRs2";
- 	User.getUserById(userId, function(err, user){
- 		//console.log(newLogin);
- 		// user.userLogin = 'PuNKeR';
-
- 		// user.save(function(err){
- 		// 	if(err){
- 		// 		res.status(400).send(err);
- 		// 	}else{
- 		// 		res.json(user);
- 		// 	}
- 		// })
- 	}); 	 	
+ 	console.log('update: ' + userId); 	
  };

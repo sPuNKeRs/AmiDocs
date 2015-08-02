@@ -26,17 +26,3 @@ exports.signout = function(req, res){
 exports.loggedin = function(req, res){
 	res.send(req.isAuthenticated() ? req.user : '0');
 };
-
-// Проверка прав доступа к ресурсу
-exports.checkAccess = function(req, res, next){
-	// Инициализация переменных
-	aclCtrl.checkAllows(req, res, next, function(err, res){
-		if(err){
-			console.log(err);
-			next();
-		}else{
-			console.log(res);
-			next({error: 'Доступ запрещен!'});
-		}
-	});
-};
