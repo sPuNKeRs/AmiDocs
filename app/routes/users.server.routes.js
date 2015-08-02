@@ -3,7 +3,7 @@
 /**
  * Подключаем зависимости
  */
-
+ 
  module.exports = function(app){
  	// Чтобы запретить достут не авторизованному 
  	// пользователю, нужно добавить users.checkAuth
@@ -29,6 +29,6 @@
 	app.route('/user/:id').get(users.checkAuth, users.getUserById); 	
 
 	// Обновление данных пользователя
-	app.route('/user').put(users.checkAuth, users.update);
+	app.route('/user').put(users.checkAuth, users.checkAccess,users.update);
 
  };

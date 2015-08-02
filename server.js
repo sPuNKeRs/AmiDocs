@@ -22,7 +22,8 @@ var db = mongoose.connect(config.db.uri, config.db.options, function(err){
 mongoose.connection.on('error', function(err){
 	console.error(chalk.red('Ошибка соединиения с MongoDB: ' + err));
 });
-
+// Инициализация ACL
+require('./config/acl');
 
 // Инициализация EXPRESS
 var app = require('./config/express')(db);

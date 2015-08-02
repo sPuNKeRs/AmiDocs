@@ -5,6 +5,8 @@
  */
 var passport = require('../../../config/passport.js')();
 var auth = require('../../middleware/auth.js');
+var aclCtrl = require('../acl.server.controller');
+//var acl = require('../../../config/acl');
 
 
 // Авторизация пользователя
@@ -23,4 +25,18 @@ exports.signout = function(req, res){
 // Проверка состояния авторизации пользователя
 exports.loggedin = function(req, res){
 	res.send(req.isAuthenticated() ? req.user : '0');
+};
+
+// Проверка прав доступа к ресурсу
+exports.checkAccess = function(req, res, next){
+	// Инициализация переменных
+	aclCtrl.checkAllows(req, res, next, function(err, res){
+		if(err){
+			console.log(err);
+			next();
+		}else{
+			console.log(res);
+			next({error: 'Доступ запрещен!'});
+		}
+	});
 };

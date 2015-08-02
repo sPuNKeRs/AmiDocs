@@ -13,6 +13,7 @@
     "postinstall": "bower install --config.interactive=false"
   },
   "dependencies": {
+    "acl": "^0.4.7",
     "async": "^1.4.0",
     "body-parser": "^1.13.2",
     "chalk": "^1.1.0",
@@ -32,10 +33,12 @@
     "helmet": "^0.10.0",
     "lodash": "^3.10.0",
     "method-override": "^2.3.4",
+    "mongodb": "^2.0.39",
     "mongoose": "^4.0.8",
     "morgan": "^1.6.1",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
+    "redis": "^0.12.1",
     "swig": "^1.4.2"
   },
   "devDependencies": {}

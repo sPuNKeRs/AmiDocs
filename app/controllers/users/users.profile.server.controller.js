@@ -37,7 +37,7 @@
  	console.log(userId);
  	var newLogin = "PuNKeRs2";
  	User.getUserById(userId, function(err, user){
- 		console.log(newLogin);
+ 		//console.log(newLogin);
  		// user.userLogin = 'PuNKeR';
 
  		// user.save(function(err){

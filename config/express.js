@@ -23,15 +23,18 @@ var consolidate = require('consolidate'); // Библиотека шаблони
 var path = require('path'); // Модуль для работы с путями
 var mongoose = require('mongoose');
 
+
 module.exports = function(db){
 	// Инициализация EXPRESS приложения
 	var app = express();
+
 
 	// Загрузка файлоф моделей (Mongoose)
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
 	});
 
+	
 	// Инициализация локальных переменных
 	app.locals.title = config.app.title;
 	app.locals.description = config.app.description;
