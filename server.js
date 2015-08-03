@@ -14,19 +14,30 @@ var chalk 	 = require('chalk'); // Модуль для расскраски те
  */
 
 // Подключение базы данных
-var db = mongoose.connect(config.db.uri, config.db.options, function(err){
-	if(err){
-		console.error(chalk.red('Ошибка подключение к MongoDB!'));
-	}
-});
+// var db = mongoose.connect(config.db.uri, config.db.options, function(err){
+// 	if(err){
+// 		console.error(chalk.red('Ошибка подключение к MongoDB!'));
+// 	}
+// });
+
+
+
+// Connect to mongodb
+var connect = function () {
+  mongoose.connect(config.db.uri, config.db.options);
+};
+connect();
+
 mongoose.connection.on('error', function(err){
 	console.error(chalk.red('Ошибка соединиения с MongoDB: ' + err));
 });
+mongoose.connection.on('disconnected', connect);
+
 // Инициализация ACL
 require('./config/acl');
 
 // Инициализация EXPRESS
-var app = require('./config/express')(db);
+var app = require('./config/express')();
 
 // Запускаем приложение на порту <port>
 app.listen(config.port);

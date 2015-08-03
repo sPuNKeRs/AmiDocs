@@ -24,7 +24,7 @@ var path = require('path'); // Модуль для работы с путями
 var mongoose = require('mongoose');
 
 
-module.exports = function(db){
+module.exports = function(){
 	// Инициализация EXPRESS приложения
 	var app = express();
 
