@@ -1,7 +1,6 @@
 'use strict';
 
 // Подключаем зависимости
-var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var acl = require('acl');
 var async = require('async');

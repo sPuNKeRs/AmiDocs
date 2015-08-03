@@ -1,4 +1,3 @@
-var mongodb = require('mongodb'); 
 var mongoose = require('mongoose');
 var acl = require('acl');
 
