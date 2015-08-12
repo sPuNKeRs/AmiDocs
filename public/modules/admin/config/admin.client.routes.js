@@ -15,7 +15,7 @@ angular.module('Admin').config(['$stateProvider', '$locationProvider', '$httpPro
 		}	
 	});
 }]).run(function($rootScope, $http, $state, $location){	
-	$rootScope.$on('$stateChangeStart', function(){
-		console.log($location.path());
-	});
+	// $rootScope.$on('$stateChangeStart', function(){
+	// 	console.log($location.path());
+	// });
 });

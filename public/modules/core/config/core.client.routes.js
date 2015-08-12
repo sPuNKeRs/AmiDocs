@@ -30,17 +30,21 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$httpPro
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html',
 			resolve:{
-			loggedin: function(Authentication){
-				return Authentication.checkLoggedin();
+				loggedin: function(Authentication){
+					return Authentication.checkLoggedin();
+				}
+			},
+			data: {
+				'name': 'PuNKeR'
 			}
-		}
 		});
 	}
 ]).run(function($rootScope, $location){
 	// Пометить активную ссылку в меню
-	$rootScope.$on('$stateChangeStart', function(){
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
 		$rootScope.isActive = function(viewLocation){
 			return viewLocation === $location.path();
 		}
+		console.log(toState.name);
 	});
 });
