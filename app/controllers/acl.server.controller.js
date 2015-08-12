@@ -34,7 +34,7 @@ exports.checkPermission = function(resouce, action){
 					case true:
 						if(err){
 							console.error(err);
-							res.status(401).send('Access denied');							
+							res.status(403).send('Access denied');							
 						}else{
 							console.log(result);							
 							next();

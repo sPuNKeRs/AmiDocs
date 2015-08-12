@@ -37,6 +37,9 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$httpPro
 			data: {
 				'name': 'PuNKeR'
 			}
+		}).state('access-deny',{
+			url: '/access-deny',
+			templateUrl: 'modules/core/views/access-deny.client.view.html',
 		});
 	}
 ]).run(function($rootScope, $location){
@@ -46,5 +49,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider', '$httpPro
 			return viewLocation === $location.path();
 		}
 		console.log(toState.name);
+
+		$rootScope.saveState = toState.name;
 	});
 });

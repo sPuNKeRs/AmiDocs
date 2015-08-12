@@ -6,12 +6,18 @@ angular.module('Users').service('Authentication', ['$q', '$http', '$location','$
 		checkLoggedin: function(){
 			// Регистрируем новое обещание
 			var deffered = $q.defer();
+			var resource = $rootScope.saveState;
 
 			// Делаем запрос на сервер, для проверки, состояния
 			// авторизации пользователя
-			$http.get('/loggedin').success(function(user){
-				//console.log('data: ' + user);
+			$http.post('/loggedin', {
+				resource: resource
+			}).success(function(user){
 				if(user !== '0'){
+					if(!user.access){
+						$state.go('access-deny');
+					}
+					
 					$rootScope.loggedUser = user;
 					deffered.resolve(user);					
 				}else{
