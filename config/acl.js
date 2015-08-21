@@ -15,14 +15,19 @@ mongoose.connection.on('connected', function(){
 	acl.allow('admin', 'user', ['post', 'get', 'put', 'delete']);
 
 	// Страница администратора (admin)
-	acl.allow('registered', 'admin', ['get']);
-
+	
 	acl.allow('admin', 'admin', ['post', 'get', 'put', 'delete']);
 
 	
 	// Добавляем пользователей в группы
+	//PuNKeR
 	acl.addUserRoles('559acc3abfd220e32ed4ddc2', 'admin');
 	acl.addUserRoles('559acc3abfd220e32ed4ddc2', 'registered'); 
+
+	// Gosha
+	acl.addUserRoles('55d3428113b2197220203563', 'registered'); 
+
+	
 
 	console.log('Инициализация ACL');
 });

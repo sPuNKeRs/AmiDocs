@@ -42,16 +42,6 @@ var schema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	roles:{
-		type: Array,
-		required: true,
-		default: ['registered']
-	},
-	groups:{
-		type: Array,
-		required: false,
-		default: ['users']
-	},
 	state:{
 		type: Boolean,
 		require: true,

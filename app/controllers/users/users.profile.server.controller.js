@@ -12,8 +12,8 @@
  			console.error(err);
  			res.status(500).send('Ошибка на сервере');
  		}else{
- 			console.dir(users);
- 			res.status(200).send(users);
+ 			console.log(users);
+ 			res.status(200).json(users);
  		}
  	}); 	
  };
@@ -25,8 +25,8 @@
  			console.error(err);
  			res.status(500).send('Ошибка на сервере');
  		}else{
- 			console.dir(user);
- 			res.status(200).send(user);
+ 			console.log(user);
+ 			res.status(200).json(user);
  		}
  	});	
  };
