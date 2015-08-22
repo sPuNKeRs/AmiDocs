@@ -6,7 +6,7 @@
 		
 		// Инициализация переменных
 		$scope.selectedUser = {
-			active: false
+			id: null
 		}; 
 
 

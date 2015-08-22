@@ -3,9 +3,9 @@
 
 	var linkFn;
 
-	linkFn = function($scope, element, attrs){
+	linkFn = function($scope, element, attrs, $compile){
 		element.click(function(n){
-			$scope.$parent.selectedUser.active = attrs.userid;										
+			$scope.$parent.selectedUser.id = attrs.userid;										
 		});
 
 	};
