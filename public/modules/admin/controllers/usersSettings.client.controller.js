@@ -28,10 +28,12 @@
 		// Функция изменения пользователя
 		$scope.editUser = function(size){
 			var modalInstance = $modal.open({
+					scope: $scope,
+					keyboard: false,
 					animation: true,
 					backdrop: 'static',
 			      	templateUrl: '/modules/admin/views/users/editUserModal.client.view.html',
-			      	controller: 'UsersSettingsController',
+			      	controller: 'UserEditController',
 			      	size: size,
 			      	resolve: {
 			        		
@@ -41,7 +43,7 @@
 
 		// Фунекция удаления пользователя
 		$scope.deleteUser = function(){
-			console.log('Удалить пользователя');			
+			console.log('Удалить пользователя ' + $scope.selectedUser.id);
 		};
 
 		// Функция для обновления списка пользователей
