@@ -30,6 +30,6 @@
 	app.route('/user/:id').get(users.checkAuth, users.getUserById); 	
 
 	// Обновление данных пользователя
-	app.route('/user').put(users.checkAuth, aclCtrl.checkPermission('user', 'update'), users.update);
+	app.route('/user').post(users.checkAuth, aclCtrl.checkPermission('user', 'post'), users.update);
 
  };

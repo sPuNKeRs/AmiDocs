@@ -17,8 +17,6 @@ module.exports = function(app){
 	app.route('/admin').get(users.checkAuth, 
 							aclCtrl.checkPermission('admin', 'get'), 
 							function(req, res){
-		
-		
 
 		var user = req.user;
 		var resourses = 'admin';
@@ -31,43 +29,7 @@ module.exports = function(app){
 			console.log(permissions);
 		});
 
-
-
-		// async.waterfall([function(callback){
-		// 	// Получаем список ролей пользователя
-		// 	acl.userRoles(user.userId, function(err, roles){
-		// 		if(err) callback(err);
-
-		// 		callback(null, roles);
-		// 	})
-		// }, function(roles, callback){
-		// 	// Получаем для каждой роли действия
-		// 	async.each(roles, function(role, callback){
-		// 		acl.allowedPermissions(user.userId, role, function(err, permissions){
-		// 			if (err) callback(err);
-		// 			userACL.push(permissions);
-		// 			callback();
-		// 		});
-		// 	}, function(err){
-		// 		callback(null, userACL);
-		// 	});
-
-
-
-
-		// }], function(err, results){
-		// 	if(err) console.log(err);
-		// 	//console.log('asdf');
-		// 	console.log(results);
-		// 	console.log('--Result block --');
-		// });
-
-
-
-
 		res.status(200).send('Страница администратора');
-
-
 	});
 
 };
