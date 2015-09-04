@@ -15,6 +15,7 @@
 			// Функция отмены
 			$scope.cancel = function(){
 				$modalInstance.dismiss('cancel');
+				$scope.$parent.refreshUserList();
 			};
 
 			/**
@@ -23,7 +24,7 @@
 			 * @return user
 			 */
 			 $scope.applyChange = function(){
-			 	console.log('Сохраняем пользователя!');
+			 	//console.log('Сохраняем пользователя!');
 			 	
 			 	if($scope.userId){
 			 		UsersService.edit($scope.userId, $scope.user)

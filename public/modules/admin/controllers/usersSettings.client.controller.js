@@ -21,8 +21,19 @@
 
 
 		// Функция создания нового пользователя
-		$scope.createNewUser = function(){
-			console.log('Создать нового пользователя');
+		$scope.createNewUser = function(size){
+			var modalInstance = $modal.open({
+					scope: $scope,
+					keyboard: false,
+					animation: true,
+					backdrop: 'static',
+			      	templateUrl: '/modules/admin/views/users/createUserModal.client.view.html',
+			      	controller: 'UserCreateController',
+			      	size: size,
+			      	resolve: {
+			        		
+			    	}
+    		});
 		};
 
 		// Функция изменения пользователя
