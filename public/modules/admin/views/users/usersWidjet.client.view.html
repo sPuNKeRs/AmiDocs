@@ -1,4 +1,4 @@
-<div ng-controller="UsersSettingsController">
+<div ng-controller="UsersSettingsController" ng-cloak>
 	<h3>Пользователи</h3>
 		<div class="container">
 			<div class="row">
@@ -16,7 +16,8 @@
 				      <a href="#" 
 				      	 class="btn btn-danger" 
 				      	 role="button"
-				      	 ng-click="deleteUser()">Удалить</a>
+				      	 ng-disabled="!selectedUser.id"
+				      	 ng-click="!selectedUser.id || deleteUser('lg')">Удалить</a>
 				      <a href="#" 
 				      	 class="btn btn-info" 
 				      	 role="button"

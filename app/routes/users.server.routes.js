@@ -35,4 +35,6 @@
 	// Создание нового пользователя
 	app.route('/user').put(users.checkAuth, aclCtrl.checkPermission('user', 'put'), users.createUser);
 
+	// Удаление пользователя по id
+	app.route('/user/:id').delete(users.checkAuth, aclCtrl.checkPermission('user', 'delete'), users.deleteUserById);
  };

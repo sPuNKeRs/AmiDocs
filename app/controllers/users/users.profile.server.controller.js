@@ -57,46 +57,67 @@
 exports.createUser = function(req, res){
 	// Инициализация переменных
 	var newUser = req.body;
-	var errorMsg = '';
-	
-	// async.waterfall([
-	// 	function(callback){
-			
-
-	// 		User.checkUniqLogin(newUser.login, function(err, results){
-	// 			if(err) callback(err);
-	// 				callback(null, results);
-	// 		});
-
-
-	// 	},
-	// 	function(results, callback){
-	// 		if(!results){
-	// 			callback({error: 'Логин уже занят.'});
-	// 		}
-
-	// 		// Создаем нового пользователя
-
-	// 	}
-	// ], function(err, results){
-	// 	if(err){
-	// 		console.log(err);
-	// 	}
-	// });
+	var errorMsg = '';	
 
 	async.parallel([function(callback){
-		User.checkUniqLogin("Kamaz", callback);
+		User.checkUniqLogin(newUser.login, callback);
 	}, function(callback){
-		User.checkUniqEmail("kamaz@gmail.com", callback)
+		User.checkUniqEmail(newUser.email, callback)
 	}		
 	], 
 	function(err, results){
 		console.log(arguments);
-
 		if(err) throw err;
-		if(!results[0]){errorMsg = errorMsg + 'Логин уже используется.'}
-		if(!results[1]){errorMsg = errorMsg + ' Email уже используется.'}
-		
-		res.status(200).json({errorMsg: errorMsg});		
+
+		if(results[0] && results[1]){
+			console.log('Создаем пользователя!');
+			var user = new User({
+				surname: newUser.surname,
+				name: newUser.name,
+				lastname: newUser.lastname,
+				email: newUser.email,
+				userLogin: newUser.login,
+				password: newUser.password
+			});
+
+			user.save(function(err, result){
+				if(err) throw err;
+				console.log("Пользоваетль успешно создан!");
+				console.log(result);
+				res.status(200).json({newUser: result});
+			});
+
+		}else{
+			if(!results[0]){errorMsg = errorMsg + ' Логин уже используется.'}
+			if(!results[1]){errorMsg = errorMsg + ' Email уже используется.'}		
+			res.status(200).json({errorMsg: errorMsg});	
+		}			
 	});
+};
+
+// Удаление пользователя по ID
+exports.deleteUserById = function(req, res){
+	console.log('Работает deleteUserById !');
+	// Инициализация переменных
+	var userId = req.params.id;
+	// Если userId не пустая строка, то удаляем
+	if(userId != ''){
+		User.deleteUserById(userId, function(err, result){
+			if(err) throw err;
+
+			//console.log(result);
+			if(result.result.ok){
+				if(result.result.n != 0){
+					console.log('Пользователь удален!');
+					res.status(200).json({deleteResult: true});
+				}else{
+					console.log('Пользователя не существует!');
+					res.status(200).json({deleteResult: false});
+				}
+			}else{
+				console.log('Ошибка при удалении.');
+				res.status(200).json({deleteResult: false});
+			}			
+		});
+	}	
 };

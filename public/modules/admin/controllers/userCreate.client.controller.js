@@ -38,6 +38,8 @@
 			 					if(results.errorMsg){
 			 						$scope.messageClass = ['alert', 'alert-danger'];
 			 						$scope.message = results.errorMsg;
+			 					}else{
+		 							$scope.cancel();
 			 					}
 
 			 					

@@ -6,7 +6,8 @@
 		
 		// Инициализация переменных
 		$scope.selectedUser = {
-			id: null
+			id: null,
+			name: null
 		}; 
 
 
@@ -53,8 +54,20 @@
 		};
 
 		// Фунекция удаления пользователя
-		$scope.deleteUser = function(){
+		$scope.deleteUser = function(size){
 			console.log('Удалить пользователя ' + $scope.selectedUser.id);
+			var modalInstance = $modal.open({
+					scope: $scope,
+					keyboard: false,
+					animation: true,
+					backdrop: 'static',
+			      	templateUrl: '/modules/admin/views/users/deleteUserModal.client.view.html',
+			      	controller: 'UserDeleteController',
+			      	size: size,
+			      	resolve: {
+			        		
+			    	}
+    		});
 		};
 
 		// Функция для обновления списка пользователей

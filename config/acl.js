@@ -21,8 +21,8 @@ mongoose.connection.on('connected', function(){
 	
 	// Добавляем пользователей в группы
 	//PuNKeR
-	acl.addUserRoles('559acc3abfd220e32ed4ddc2', 'admin');
-	acl.addUserRoles('559acc3abfd220e32ed4ddc2', 'registered'); 
+	acl.addUserRoles('55eac867b70a22fa66e42974', 'admin');
+	acl.addUserRoles('55eac867b70a22fa66e42974', 'registered'); 
 
 	// Gosha
 	acl.addUserRoles('55d3428113b2197220203563', 'registered'); 

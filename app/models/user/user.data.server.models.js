@@ -54,6 +54,11 @@ module.exports = function(schema){
 		});
 	};
 
+	// Удалить пользователя из базы по id
+	schema.statics.deleteUserById = function(userId, callback){
+		this.findOne({_id: userId}).remove().exec(callback);
+	};
+
 
 	return schema;
 };
