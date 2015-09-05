@@ -1,0 +1,53 @@
+<div amidocs-menu menu-title="AmiDocs"></div>
+<div ng-controller="DocumentsController">
+	<div class="container">
+		<div class="row">
+			<div class="well">
+				<div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+			      <a href="#" 
+			      	 class="btn btn-success" 
+			      	 role="button" 
+			      	 ng-click="">Создать</a>
+			      <a href="#" 
+			      	 class="btn btn-warning" 
+			      	 role="button"
+			      	 ng-click="">Изменить</a>
+			      <a href="#" 
+			      	 class="btn btn-danger" 
+			      	 role="button"
+			      	 ng-click="">Удалить</a>
+			      <a href="#" 
+			      	 class="btn btn-info" 
+			      	 role="button"
+			      	 ng-click="">Обновить</a>
+			    </div>
+			</div>	
+			</div>
+			<div class="row">
+				<table class="table table-hover">
+			      <thead>
+			        <tr>
+			          <th>#</th>
+			          <th>Номер</th>
+			          <th>Наименовние</th>
+			          <th>Дата регистрации</th>
+			          <th>Статус</th>
+			          <th>Создал</th>	          			          
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr ng-repeat="document in Documents">
+			          <td>{{$index+1}}</td>
+			          <td>{{document.doc_number}}</td>
+			          <td>{{document.title}}</td>
+			          <td>{{document.receipt_date}}</td>
+			          <td>{{document.status}}</td>
+			          <td>{{document.creator_id}}</td>
+			        </tr>		               
+			      </tbody>
+				</table>			
+			</div>	
+		</div>
+</div>	
+</div>
+

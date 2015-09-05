@@ -18,6 +18,9 @@ mongoose.connection.on('connected', function(){
 	
 	acl.allow('admin', 'admin', ['post', 'get', 'put', 'delete']);
 
+	// Страница работы с документами
+	acl.allow('admin', 'docs', ['post', 'get', 'put', 'delete']);	
+
 	
 	// Добавляем пользователей в группы
 	//PuNKeR

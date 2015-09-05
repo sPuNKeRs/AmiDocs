@@ -14,7 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li ui-route="/home" ng-class="{ active: isActive('/')}"><a href="#!/">Главная <span class="sr-only">(current)</span></a></li>        
+        <li ui-route="/home" ng-class="{ active: isActive('/')}"><a href="#!/">Главная <span class="sr-only">(current)</span></a></li>
+        <li ui-route="/docs" ng-class="{ active: isActive('/docs')}"><a href="#!/docs">Документы <span class="sr-only">(current)</span></a></li>        
       </ul>      
       <ul class="nav navbar-nav navbar-right">
         <li ng-class="{ active: isActive('/user/'+loggedUser.userId)}"><a href="#!/user/{{loggedUser.userId}}">{{loggedUser.name}}</a></li>
@@ -24,7 +25,7 @@
                 Настройки <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                <li role="menuitem"><a href="#!/">Главная</a></li>
+                <li role="menuitem"><a href="#!/">Главная</a></li>                
                 <li role="menuitem"><a href="#!/user/{{loggedUser.userId}}">Профиль</a></li>
                 <li role="menuitem"><a href="#!/admin">Панель управлeния</a></li>
                 <li class="divider"></li>

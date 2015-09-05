@@ -1,8 +1,8 @@
 ;(function(A){
 'use strict';
 A.module('Admin').controller('UserDeleteController', 
-['$scope', '$modalInstance', 'UsersService', UsersService]);
-	function UsersService($scope, $modalInstance, UsersService){
+['$scope', '$modalInstance', 'UsersService', UserDeleteController]);
+	function UserDeleteController($scope, $modalInstance, UsersService){
 		// Отладочная информация
 		console.log('--- UserDeleteController ---');
 		// Инцициализация переменных
