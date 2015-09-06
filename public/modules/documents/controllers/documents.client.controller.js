@@ -2,29 +2,44 @@
 	'use strict';
 	A.module('Documents')
 		.controller('DocumentsController', 
-			['$scope', '$modal', DocumentsController]);
+			['$scope', 
+			 '$modal', 
+			 'DocumentsService', DocumentsController]);
 
 	// ---- //
-	function DocumentsController($scope, $modal){
+	function DocumentsController($scope, $modal, DocumentsService){
 		// Отладочная информация
 		console.log('-- DocumentsController --');
 		// Инициализация
-		$scope.Documents = [{
-			doc_number: '12-A',
-			title: 'Письмо МИАЦ',
-			receipt_date: '20-11-2013',
-			status: 'Не выполнено',
-			creator_id: 'Корытин М. С.'
-		},
-		{
-			doc_number: '246-ОР',
-			title: 'Письмо Управления здравоохранения',
-			receipt_date: '23-11-2015',
-			status: 'Выполенно',
-			creator_id: 'Смирнов Е. В.'
-		}];
+		$scope.Documents = DocumentsService.list();
 
-		
+		// Обновить список документов
+		$scope.refreshDocsList = refreshDocsList;
 
+		// Создать новый документ
+		$scope.createNewDoc = createNewDoc;
+
+		// ----- //
+
+		// Функция обновления списка документов
+		function refreshDocsList(){
+			$scope.Documents = DocumentsService.list();			
+		};
+
+		// Функция вызова модельного окна
+		// для создания нового документа
+		function createNewDoc(size){
+			var modalInstance = $modal.open({
+					scope: $scope,
+					keyboard: false,
+					animation: true,
+					backdrop: 'static',
+			      	templateUrl: '/modules/documents/views/createDocModal.client.view.html',
+			      	controller: 'DocCreateController',
+			      	size: size,
+			      	resolve: {		        		
+			    	}
+    		});
+		};
 	};
 })(this.angular);

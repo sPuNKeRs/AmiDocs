@@ -7,7 +7,7 @@
 			      <a href="#" 
 			      	 class="btn btn-success" 
 			      	 role="button" 
-			      	 ng-click="">Создать</a>
+			      	 ng-click="createNewDoc('lg')">Создать</a>
 			      <a href="#" 
 			      	 class="btn btn-warning" 
 			      	 role="button"
@@ -19,11 +19,11 @@
 			      <a href="#" 
 			      	 class="btn btn-info" 
 			      	 role="button"
-			      	 ng-click="">Обновить</a>
+			      	 ng-click="refreshDocsList()">Обновить</a>
 			    </div>
 			</div>	
 			</div>
-			<div class="row">
+			<div class="row" ng-cloak>
 				<table class="table table-hover">
 			      <thead>
 			        <tr>
@@ -40,7 +40,7 @@
 			          <td>{{$index+1}}</td>
 			          <td>{{document.doc_number}}</td>
 			          <td>{{document.title}}</td>
-			          <td>{{document.receipt_date}}</td>
+			          <td>{{document.receipt_date | date: 'dd-MM-yyyy'}}</td>
 			          <td>{{document.status}}</td>
 			          <td>{{document.creator_id}}</td>
 			        </tr>		               

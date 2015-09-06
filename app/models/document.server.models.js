@@ -4,6 +4,7 @@ var async = require('async');
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
+// Свойства модели
 var schema = new Schema({
 	doc_number:{
 		type: String,
@@ -33,5 +34,14 @@ var schema = new Schema({
 		required: true
 	}	
 });
+
+// Методы модели
+
+// Получить все документы из БД
+schema.statics.getDocumentsList = function(callback){
+	this.find({}).exec(function(err, results){
+		return callback(err, results);
+	});
+};
 
 exports.Document = mongoose.model('Document', schema);

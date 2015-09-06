@@ -11,6 +11,11 @@ module.exports = function(app){
 		.get(users.checkAuth, 
 			 aclCtrl.checkPermission('docs', 'get'), 
 			 documents.getDocumentsList);
+	// Создать документ
+	app.route('/docs')
+		.put(users.checkAuth, 
+			 aclCtrl.checkPermission('docs', 'put'), 
+			 documents.createNewDocument);
 	
 };
 
