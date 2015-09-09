@@ -38,6 +38,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/angular-busy/dist/angular-busy.css'
 			],
 			js: [
 				'public/lib/jquery/dist/jquery.min.js',
@@ -48,6 +49,7 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				//'public/lib/angular-ui-utils/modules/utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/angular-busy/dist/angular-busy.min.js'
 			]
 		},
 		css: [

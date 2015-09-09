@@ -13,14 +13,6 @@ var chalk 	 = require('chalk'); // Модуль для расскраски те
  * Обратите внимание, порядок загрузки очень важен.
  */
 
-// Подключение базы данных
-// var db = mongoose.connect(config.db.uri, config.db.options, function(err){
-// 	if(err){
-// 		console.error(chalk.red('Ошибка подключение к MongoDB!'));
-// 	}
-// });
-
-
 
 // Connect to mongodb
 var connect = function () {

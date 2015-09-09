@@ -3,7 +3,7 @@
 
 	var linkFn;
 
-	linkFn = function($scope, element, attrs, $compile){
+	linkFn = function($scope, element, attrs){
 		var parentScope = $scope.$parent;
 		
 		$scope.userChecked = function(){

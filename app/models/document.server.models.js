@@ -44,4 +44,25 @@ schema.statics.getDocumentsList = function(callback){
 	});
 };
 
+// Получить документ по ID
+schema.statics.getDocumentById = function(documentID, callback){
+	this.findOne({'_id': documentID}).exec(function(err, result){
+		return callback(err, result);
+	});
+};
+
+// Сохраняем изменения в документ
+schema.statics.saveChangesDocument = function(documentID, changedDocumentData, callback){
+		this.findByIdAndUpdate(documentID, {$set: changedDocumentData}, function(err, result){
+			callback(err, result);
+		});		
+	};
+
+// Удалить документ по ID
+schema.statics.deleteDocumentById = function(documentID, callback){
+	this.findOne({'_id': documentID}).remove().exec(function(err, result){
+		callback(err, result);
+	});
+};
+
 exports.Document = mongoose.model('Document', schema);

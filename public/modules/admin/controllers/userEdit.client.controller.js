@@ -1,4 +1,4 @@
-(function(A){
+;(function(A){
 	'use strict';
 
 	A.module('Admin').controller('UserEditController', 

@@ -33,7 +33,18 @@
 			if($scope.document){
 				console.log('Сохраняем документ: ');
 				console.log($scope.document);
-				DocumentsService.create($scope.document);				
+				DocumentsService.create($scope.document).$promise.then(function(){
+					console.log('Успешный результат');
+					console.log(arguments);
+					$scope.refreshDocsList();
+					$scope.cancel();
+				}, function(err){
+					$scope.messageClass = ['alert', 'alert-danger'];
+					$scope.message = err.data.error.message;
+					console.log('Произошла ошибка: ');
+					console.log(err.data.error.message);
+					
+				});				
 			}
 		}	
 	}

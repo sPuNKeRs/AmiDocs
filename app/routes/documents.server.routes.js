@@ -16,6 +16,24 @@ module.exports = function(app){
 		.put(users.checkAuth, 
 			 aclCtrl.checkPermission('docs', 'put'), 
 			 documents.createNewDocument);
+
+	// Получить документ по ID
+	app.route('/docs/:id')
+		.get(users.checkAuth, 
+			 aclCtrl.checkPermission('docs', 'get'), 
+			 documents.getDocumentById);
+
+	// Сохранить изменения в документе
+	app.route('/docs')
+		.post(users.checkAuth, 
+			 aclCtrl.checkPermission('docs', 'post'), 
+			 documents.saveChangesDocument);
+
+	// Удалить документ по ID
+	app.route('/docs/:id')
+		.delete(users.checkAuth, 
+			 aclCtrl.checkPermission('docs', 'post'), 
+			 documents.deleteDocument);
 	
 };
 

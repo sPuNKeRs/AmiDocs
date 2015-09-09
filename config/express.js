@@ -130,6 +130,7 @@ module.exports = function(){
 		if (!err) return next();
 
 		// Вывести ошибку
+		console.log('Выводим ошибку в обработчике: ');
 		console.error(err.stack);
 
 		// Страница ошибки 500

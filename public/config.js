@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Настройки инициализации
 	var applicationModuleName = 'amidocs';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'cgBusy'];
 
 	// Добавление нового модуля в приложение
 	var registerModule = function(moduleName, dependencies) {

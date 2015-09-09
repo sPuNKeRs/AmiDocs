@@ -15,3 +15,11 @@ angular.element(document).ready(function() {
 	//Инициализируем приложение
 	angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });
+
+angular.module(ApplicationConfiguration.applicationModuleName).value('cgBusyDefaults',{
+  message:'Загрузка...',
+  backdrop: true,
+  delay: 200,    
+  minDuration: 250,
+  wrapperClass: 'loading-content'
+});
