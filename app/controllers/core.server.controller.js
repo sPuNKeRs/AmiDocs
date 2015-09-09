@@ -5,8 +5,5 @@
 */
 
 exports.index = function(req, res){
-	res.render('index',{
-		user: "GUEST",
-		request: req
-	});
+	res.render('index',{});
 };

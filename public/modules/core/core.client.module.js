@@ -1,4 +1,5 @@
-'use strict';
-
-// Регистрируем модуль core
-ApplicationConfiguration.registerModule('core');
+;(function(){
+    'use strict';
+    // Регистрируем модуль core
+    ApplicationConfiguration.registerModule('core');
+})();

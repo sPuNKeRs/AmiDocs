@@ -13,7 +13,6 @@ var chalk 	 = require('chalk'); // Модуль для расскраски те
  * Обратите внимание, порядок загрузки очень важен.
  */
 
-
 // Connect to mongodb
 var connect = function () {
   mongoose.connect(config.db.uri, config.db.options);

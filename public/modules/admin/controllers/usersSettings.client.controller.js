@@ -29,7 +29,7 @@
 					animation: true,
 					backdrop: 'static',
 			      	templateUrl: '/modules/admin/views/users/createUserModal.client.view.html',
-			      	controller: 'UserCreateController',
+			      	controller: 'CreateUserController',
 			      	size: size,
 			      	resolve: {
 			        		
@@ -62,7 +62,7 @@
 					animation: true,
 					backdrop: 'static',
 			      	templateUrl: '/modules/admin/views/users/deleteUserModal.client.view.html',
-			      	controller: 'UserDeleteController',
+			      	controller: 'DeleteUserController',
 			      	size: size,
 			      	resolve: {
 			        		

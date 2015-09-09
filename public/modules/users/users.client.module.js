@@ -1,4 +1,5 @@
-'use strict';
-
-// Регистрируем модуль users
-ApplicationConfiguration.registerModule('Users');
+;(function(){
+    'use strict';
+    // Регистрируем модуль users
+    ApplicationConfiguration.registerModule('Users');
+})();

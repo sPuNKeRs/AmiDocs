@@ -1,25 +1,21 @@
-'use strict';
+;(function(A){
+    'use strict';
+    //Начинаем с определения основного модуля и добовляем зависимости
+    A.module(ApplicationConfiguration.applicationModuleName, 
+                   ApplicationConfiguration.applicationModuleVendorDependencies);
 
-//Начинаем с определения основного модуля и добовляем зависимости
-angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfiguration.applicationModuleVendorDependencies);
+    // Устанавлиеваем режим HTML5
+    A.module(ApplicationConfiguration.applicationModuleName)
+        .config(['$locationProvider',
+            function($locationProvider) {
+                $locationProvider.hashPrefix('!');
+            }
+        ]);
 
-// Устанавлиеваем режим HTML5
-angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
-	function($locationProvider) {
-		$locationProvider.hashPrefix('!');
-	}
-]);
+    // Объявляем функцию для запуска приложения
+    A.element(document).ready(function() {
+        //Инициализируем приложение
+        A.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
+    });
 
-// Объявляем функцию для запуска приложения
-angular.element(document).ready(function() {
-	//Инициализируем приложение
-	angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
-});
-
-angular.module(ApplicationConfiguration.applicationModuleName).value('cgBusyDefaults',{
-  message:'Загрузка...',
-  backdrop: true,
-  delay: 200,    
-  minDuration: 250,
-  wrapperClass: 'loading-content'
-});
+})(this.angular);

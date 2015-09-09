@@ -3,8 +3,6 @@
 var aclCtrl = require('../controllers/acl.server.controller');
 var users = require('../../app/controllers/users.server.controller');
 
-// TEST
-
 // Подключаем зависимости
 var mongoose = require('mongoose');
 var acl = require('acl');

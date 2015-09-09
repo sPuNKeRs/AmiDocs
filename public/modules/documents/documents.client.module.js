@@ -1,4 +1,5 @@
-'use strict';
-
-// Регистрируем модуль Documents
-ApplicationConfiguration.registerModule('Documents');
+;(function(){
+    'use strict';
+    // Регистрируем модуль Documents
+    ApplicationConfiguration.registerModule('Documents');
+})();
