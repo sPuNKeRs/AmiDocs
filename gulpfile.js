@@ -1,12 +1,21 @@
 var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     server =require('gulp-develop-server'),
+    bs = require('browser-sync'),
     livereload = require('gulp-livereload');
+    
 
 // Настройка
 
-var serverOptions = {
-    path: './server.js'
+var options = {
+
+    serverOptions: {
+        path: './server.js'
+    },
+    bs:{
+        proxy: '10.0.0.66:3000',
+        port: 3001
+    }    
 };
 
 var serverJsFiles = [
@@ -23,7 +32,12 @@ var clientJsFiles = [
 
 // Запуск сервера
 gulp.task('server:start', function(){
-    server.listen( serverOptions, livereload.listen );
+    server.listen( options.serverOptions, function(error){
+        if(!error){
+            bs( options.bs );
+            livereload.listen();
+        }
+    } );
 });
 
 // Перезапуск сервера
@@ -53,7 +67,7 @@ gulp.task('watch', function(){
     //Следим за клиентской стороной
     gulp.watch('public/**/*.*', ['jshint_front']);
     gulp.watch( clientJsFiles ).on( 'change', function(file){
-        livereload.changed( file.path ) 
+        livereload.changed( file.path )
     });
 });
 
