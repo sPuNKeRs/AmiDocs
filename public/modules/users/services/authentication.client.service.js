@@ -40,5 +40,5 @@ angular.module('Users').service('Authentication', ['$q', '$http', '$location','$
 				$state.go('signin');				
 			});
 		}
-	}
+	};
 }]);

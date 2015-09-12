@@ -4,7 +4,7 @@ var acl = require('acl');
 mongoose.connection.on('connected', function(){
 	acl = new acl(new acl.mongodbBackend(mongoose.connection.db, 'acl_'));
 	
-	// Главная страница (home)
+	// Главная страница (home) 
 	acl.allow('registered', 'home', ['get']);
 
 	acl.allow('admin', 'home', ['post', 'get', 'put', 'delete']);
@@ -28,8 +28,7 @@ mongoose.connection.on('connected', function(){
 	acl.addUserRoles('55eac867b70a22fa66e42974', 'registered'); 
 
 	// Gosha
-	acl.addUserRoles('55d3428113b2197220203563', 'registered'); 
-
+	acl.addUserRoles('55d3428113b2197220203563', 'registered');
 	
 
 	console.log('Инициализация ACL');

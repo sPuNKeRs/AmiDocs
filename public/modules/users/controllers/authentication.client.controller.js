@@ -14,5 +14,5 @@ angular.module('Users').controller('AuthenticationController',
 		// Авторизация пользователя
 		$scope.signin = function(){
 			Authentication.signin($scope.credentials, $scope);
-		}		
+		};
 }]);

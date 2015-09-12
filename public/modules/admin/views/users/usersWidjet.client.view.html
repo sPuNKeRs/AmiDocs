@@ -36,7 +36,7 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-			        <tr ng-repeat="user in usersList" data-userId="{{user._id}}" user-check ng-class="{'success':userChecked()}">
+			        <tr ng-repeat="user in usersList" data-userId="{{user._id}}" check-user ng-class="{'success':userChecked()}">
 			          <td>{{$index+1}}</td>
 			          <td>{{user.surname+' '+user.name+' '+user.lastname}}</td>
 			          <td>{{user.userLogin}}</td>

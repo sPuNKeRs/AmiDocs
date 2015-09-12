@@ -26,7 +26,7 @@
         function cancel(){
             $modalInstance.dismiss('cancel');
             $scope.$parent.refreshUserList();
-        };
+        }
 
         //Функция создания нового пользователя      
         function createNewUser(form){
@@ -51,6 +51,6 @@
                     });
                 }
             }
-         };          
+         }          
     }
 })(this.angular);

@@ -1,5 +1,13 @@
-'use strict';
+;(function(A){
+    'use strict';
 
-angular.module('core').controller('HomeController', ['$scope', function($scope){
-	
-}]);
+    A.module('core')
+        .controller('HomeController', 
+            ['$scope', '$log', HomeController]);
+    // -------- //
+    function HomeController($scope, $log){    
+        // Отладочная информация
+        $log.info('Работает контроллер HomeController');
+    }        
+})(this.angular);
+

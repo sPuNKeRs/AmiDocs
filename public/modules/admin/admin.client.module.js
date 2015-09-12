@@ -1,5 +1,5 @@
 ;(function(){
     'use strict';
     // Регистрируем модуль Admin
-    ApplicationConfiguration.registerModule('Admin');
+    ApplicationConfiguration.registerModule('Admin');    
 })();

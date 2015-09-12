@@ -47,7 +47,8 @@
 		function refreshDocsList(){
 			$scope.selectedDocument = '';
 			$scope.Documents = DocumentsService.list();
-		};
+		}
+		
 		// Функция вызова модального окна
 		// для редактирования выбранного документа
 		function editDocument (size){

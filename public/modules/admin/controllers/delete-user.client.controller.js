@@ -30,7 +30,7 @@
         // Функция удаления пользователя по id
         function deleteUser(){
             $log.warn('Удаляем пользователя ' + $scope.userId);
-            if($scope.userId != ''){
+            if($scope.userId !== ''){
                 UsersService.delete({'id': $scope.userId}).$promise.then(function(result){
                     if(result.deleteResult){
                         cancel();
@@ -39,12 +39,12 @@
                     }                    
                 });
             }
-        };
+        }
 
         // Функция закрытия окна
         function cancel(){
             $modalInstance.dismiss('cancel');
             $scope.$parent.refreshUserList();
-        };
+        }
     }
 })(this.angular);
