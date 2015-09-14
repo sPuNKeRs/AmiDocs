@@ -2,14 +2,17 @@
 	'use strict';
 	A.module('Documents')
 		.controller('DocumentsController', 
-			['$scope', 
+			['$scope',
+			 '$log', 
 			 '$modal', 
 			 'DocumentsService', DocumentsController]);
 
-	// ---- //
-	function DocumentsController($scope, $modal, DocumentsService){
+	//--------//
+
+	function DocumentsController($scope, $log, $modal, DocumentsService){
 		// Отладочная информация
-		console.log('-- DocumentsController --');
+		$log.info('Работает контроллер DocumentsController');
+		
 		// Инициализация
 		$scope.Documents = DocumentsService.list();
 		$scope.selectedDocument = '';
@@ -26,7 +29,7 @@
 		// Удалить выбранный документ
 		$scope.deleteDocument = deleteDocument;
 
-		// ----- //
+		//--------//
 
 		// Функция удаления документа по id
 		function deleteDocument(size){
@@ -35,8 +38,8 @@
 					keyboard: false,
 					animation: true,
 					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/deleteDocModal.client.view.html',
-			      	controller: 'DocDeleteController',			      	
+			      	templateUrl: '/modules/documents/views/delete-document-modal.client.view.html',
+			      	controller: 'DeleteDocumentController',			      	
 			      	size: size,
 			      	resolve: {		        		
 			    	}
@@ -57,8 +60,8 @@
 					keyboard: false,
 					animation: true,
 					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/editDocModal.client.view.html',
-			      	controller: 'DocEditController',			      	
+			      	templateUrl: '/modules/documents/views/edit-document-modal.client.view.html',
+			      	controller: 'EditDocumentController',			      	
 			      	size: size,
 			      	resolve: {		        		
 			    	}
@@ -73,8 +76,8 @@
 					keyboard: false,
 					animation: true,
 					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/createDocModal.client.view.html',
-			      	controller: 'DocCreateController',
+			      	templateUrl: '/modules/documents/views/create-document-modal.client.view.html',
+			      	controller: 'CreateDocumentController',
 			      	size: size,
 			      	resolve: {		        		
 			    	}

@@ -1,7 +1,7 @@
 ;(function(A){
     'use strict';
 
-    A.module('core')
+    A.module('Core')
         .controller('HomeController', 
             ['$scope', '$log', HomeController]);
     // -------- //
@@ -10,4 +10,3 @@
         $log.info('Работает контроллер HomeController');
     }        
 })(this.angular);
-

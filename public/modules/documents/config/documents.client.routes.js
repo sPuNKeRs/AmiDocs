@@ -2,7 +2,11 @@
 	'use strict';
 	A.module('Documents').config(['$stateProvider', 
 							      '$locationProvider', 
-							      '$httpProvider', Documents]);
+							      '$httpProvider', Documents])
+						 .run(runModule);
+
+	
+	//--------//
 
 	function Documents($stateProvider, $locationProvider, $httpProvider){
 		// Маршруты модуля Users
@@ -15,5 +19,9 @@
 				}
 			}	
 		});
+	}
+
+	function runModule($log){
+		$log.info('Инициализация модуля Documents');
 	}
 })(this.angular);

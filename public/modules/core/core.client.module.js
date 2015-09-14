@@ -1,5 +1,5 @@
 ;(function(){
     'use strict';
     // Регистрируем модуль core
-    ApplicationConfiguration.registerModule('core');
+    ApplicationConfiguration.registerModule('Core');
 })();

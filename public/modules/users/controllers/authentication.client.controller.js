@@ -1,18 +1,25 @@
-'use srict';
+;(function(A){
+    'use srict';
 
-angular.module('Users').controller('AuthenticationController', 
-		['$scope', '$http', '$location', 'Authentication', '$state',
-	function AuthenticationController($scope, $http, $location, Authentication, $state){
-		// Инициализиция переменных
-		
+    A.module('Users')
+        .controller('AuthenticationController', 
+            ['$scope', 
+             '$http', 
+             '$location', 
+             'Authentication', 
+             '$state', AuthenticationController]);
 
-		// Если пользоваетль уже авторизован, перевести его на главную страницу
-		Authentication.checkLoggedin().then(function(loggedUser){
-			$state.go('home');			
-		});
+    //--------//
 
-		// Авторизация пользователя
-		$scope.signin = function(){
-			Authentication.signin($scope.credentials, $scope);
-		};
-}]);
+    function AuthenticationController($scope, $http, $location, Authentication, $state){
+        // Если пользоваетль уже авторизован, перевести его на главную страницу
+        Authentication.checkLoggedin().then(function(loggedUser){
+            $state.go('home');          
+        });
+
+        // Авторизация пользователя
+        $scope.signin = function(){
+            Authentication.signin($scope.credentials, $scope);
+        };
+    }
+})(this.angular);

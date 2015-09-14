@@ -50,7 +50,7 @@
                     animation: true,
                     backdrop: 'static',
                     templateUrl: '/modules/admin/views/users/create-user-modal.client.view.html',
-                    controller: 'CreateUserController',
+                    controller: 'CreateUserController',                    
                     size: size,
                     resolve: {
                             
@@ -66,7 +66,7 @@
                     keyboard: false,
                     animation: true,
                     backdrop: 'static',
-                    templateUrl: '/modules/admin/views/users/editUserModal.client.view.html',
+                    templateUrl: '/modules/admin/views/users/edit-user-modal.client.view.html',
                     controller: 'EditUserController',
                     size: size,
                     resolve: {

@@ -1,0 +1,49 @@
+<div ng-controller="UsersSettingsController" ng-cloak>
+	<h3>Пользователи</h3>
+		<div class="container">
+			<div class="row">
+				<div class="well">
+					<div class="btn-group btn-group-justified" role="group" aria-label="Justified button group">
+				      <a href="#" 
+				      	 class="btn btn-success" 
+				      	 role="button" 
+				      	 ng-click="createNewUser('lg')">Создать</a>
+				      <a href="#" 
+				      	 class="btn btn-warning" 
+				      	 role="button"
+				      	 ng-disabled="!selectedUser.id"
+				      	 ng-click="!selectedUser.id || editUser('lg')">Изменить</a>
+				      <a href="#" 
+				      	 class="btn btn-danger" 
+				      	 role="button"
+				      	 ng-disabled="!selectedUser.id"
+				      	 ng-click="!selectedUser.id || deleteUser('lg')">Удалить</a>
+				      <a href="#" 
+				      	 class="btn btn-info" 
+				      	 role="button"
+				      	 ng-click="refreshUserList()">Обновить</a>
+				    </div>
+				</div>	
+			</div>
+			<div class="row">
+				<table class="table table-hover">
+			      <thead>
+			        <tr>
+			          <th>#</th>
+			          <th>ФИО</th>
+			          <th>Логин</th>
+			          <th>E-mail</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr ng-repeat="user in usersList" data-userId="{{user._id}}" check-user ng-class="{'success':userChecked()}">
+			          <td>{{$index+1}}</td>
+			          <td>{{user.surname+' '+user.name+' '+user.lastname}}</td>
+			          <td>{{user.userLogin}}</td>
+			          <td>{{user.email}}</td>
+			        </tr>		               
+			      </tbody>
+				</table>			
+			</div>	
+		</div>
+</div>

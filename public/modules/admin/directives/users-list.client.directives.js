@@ -10,7 +10,7 @@
 		.directive('usersList', [function(){
 		    return {
 		        restrict: 'E',
-		        templateUrl: '/modules/admin/views/users/usersWidjet.client.view.html',
+		        templateUrl: '/modules/admin/views/users/users-widjet.client.view.html',
 		        link: linkFn
 		    };
 	}]);
