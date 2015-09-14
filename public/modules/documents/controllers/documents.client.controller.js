@@ -39,7 +39,8 @@
 					animation: true,
 					backdrop: 'static',
 			      	templateUrl: '/modules/documents/views/delete-document-modal.client.view.html',
-			      	controller: 'DeleteDocumentController',			      	
+			      	controller: 'DeleteDocumentController',	
+			      	controllerAs: 'DeleteDocCtrl',		      	
 			      	size: size,
 			      	resolve: {		        		
 			    	}
@@ -61,7 +62,8 @@
 					animation: true,
 					backdrop: 'static',
 			      	templateUrl: '/modules/documents/views/edit-document-modal.client.view.html',
-			      	controller: 'EditDocumentController',			      	
+			      	controller: 'EditDocumentController',
+			      	controllerAs: 'EditDocCtrl',			      	
 			      	size: size,
 			      	resolve: {		        		
 			    	}
@@ -78,6 +80,7 @@
 					backdrop: 'static',
 			      	templateUrl: '/modules/documents/views/create-document-modal.client.view.html',
 			      	controller: 'CreateDocumentController',
+			      	controllerAs: 'CreateDocCtrl',
 			      	size: size,
 			      	resolve: {		        		
 			    	}
