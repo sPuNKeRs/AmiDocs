@@ -1,11 +1,11 @@
 <div class="modal-header">
-    <h3 class="modal-title">Удаление документа №{{document.doc_number}}</h3>
+    <h3 class="modal-title">Удаление документа №{{DeleteDocCtrl.document.doc_number}}</h3>
 </div>
 <div class="modal-body">
-    <p>Вы точно хотите удалить документ №{{document.doc_number}} от {{document.receipt_date | date: 'dd-MM-yyyy'}}?</p>        
+    <p>Вы точно хотите удалить документ №{{DeleteDocCtrl.document.doc_number}} от {{DeleteDocCtrl.document.receipt_date | date: 'dd-MM-yyyy'}}?</p>        
 </div>
 <div class="modal-footer">
 	<div class="pull-left" ng-class="resultState">{{message}}</div>
-    <button class="btn btn-primary" type="button" ng-click="deleteDocument()">Удалить</button>
-    <button class="btn btn-warning" type="button" ng-click="cancelDelete()">Отмена</button>
+    <button class="btn btn-primary" type="button" ng-click="DeleteDocCtrl.deleteDocument()">Удалить</button>
+    <button class="btn btn-warning" type="button" ng-click="DeleteDocCtrl.cancelDelete()">Отмена</button>
 </div>

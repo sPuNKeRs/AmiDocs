@@ -6,38 +6,40 @@
             ['$scope',
              '$log',
              '$modalInstance',
+             'BufferStorage',
              'DocumentsService', DeleteDocumentController]);
 
     //--------//
 
-    function DeleteDocumentController($scope, $log, $modalInstance, DocumentsService){
+    function DeleteDocumentController($scope, $log, $modalInstance, BufferStorage, DocumentsService){
+        var vm = this;
         $log.info('Работает контроллер DeleteDocumentController');
-        $scope.document = DocumentsService.get({'id': $scope.selectedDocument});
+
+        vm.document = DocumentsService.get({'id': BufferStorage.document.id});
 
         // Удаление документа
-        $scope.deleteDocument = deleteDocument;
+        vm.deleteDocument = deleteDocument;
 
         // Отмена удаления документа
-        $scope.cancelDelete = cancelDelete;
+        vm.cancelDelete = cancelDelete;
 
         // ------ //        
 
         // Удаление документа
         function deleteDocument(){
-            $log.warn('Удаляем документ ' + $scope.document.doc_number);
-            DocumentsService.delete({id: $scope.document._id}).$promise.then(
+            $log.warn('Удаляем документ ' + vm.document.doc_number);
+            DocumentsService.delete({id: vm.document._id}).$promise.then(
                 function success(result){
                     $log.info('Документ успешно удален!');
 
-                    $scope.$parent.refreshDocsList();                    
+                    $scope.$emit('delete-document-success');
                     $modalInstance.dismiss('close');
-
                 },
                 function error(err){
                     $log.error('Ошибка при удалении документа: ');
                     $log.error(err);
-                    
-                    $scope.message = err;
+                                        
+                    vm.message = err;
                 });
         }
 

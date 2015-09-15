@@ -17,7 +17,7 @@
 		        	    class="form-control" 
 		        		id="doc_number" 
 		        		placeholder="Введите номер документа" 
-		        		ng-model="document.doc_number" 
+		        		ng-model="CreateDocCtrl.document.doc_number" 
 		        		required>  
 		      </div>
 		    </div> 
@@ -29,7 +29,7 @@
 		        		class="form-control" 
 		        		id="title" 
 		        		placeholder="Введите наименование" 
-		        		ng-model="document.title" 
+		        		ng-model="CreateDocCtrl.document.title" 
 		        		required>  
 		      </div>
 		    </div>		     
@@ -40,7 +40,7 @@
 		    <div class="col-md-6">
 		      <div class="form-group">
 		        <label for="receipt_date">Дата регистрации</label>
-		        <get-calendar></get-calendar>
+		        <get-calendar document="CreateDocCtrl.document"></get-calendar>
 		      </div>
 		    </div>
 		    
@@ -51,7 +51,7 @@
 		        	   class="form-control" 
 		        	   id="name" 
 		        	   placeholder="Укажите статус" 
-		        	   ng-model="document.status" 
+		        	   ng-model="CreateDocCtrl.document.status" 
 		        	   required>  
 		      </div>
 		    </div>
@@ -66,7 +66,7 @@
 		        		class="form-control" 
 		        		id="lastname" 
 		        		placeholder="Кто создал документ" 
-		        		ng-model="document.creator_id">  
+		        		ng-model="CreateDocCtrl.document.creator_id">  
 		       </div>
 		    </div>
 		  </div>
@@ -76,13 +76,13 @@
 	</form>        
 </div>
 <div class="modal-footer">
-	<div class="pull-left" ng-class="messageClass">{{message}}</div>
+	<div class="pull-left" ng-class="CreateDocCtrl.messageClass">{{CreateDocCtrl.message}}</div>
 
     <button class="btn btn-primary" 
     		type="button" 
-    		ng-click="createNewDocument()" 
+    		ng-click="CreateDocCtrl.createNewDocument()" 
     		ng-disabled="">Создать</button>
     <button class="btn btn-warning" 
     		type="button" 
-    		ng-click="cancel()">Отмена</button>
+    		ng-click="CreateDocCtrl.cancel()">Отмена</button>
 </div>

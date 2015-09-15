@@ -1,4 +1,4 @@
-<div ng-controller="UsersSettingsController" ng-cloak>
+<div ng-controller="UsersSettingsController as UserSettingCtrl" ng-cloak>
 	<h3>Пользователи</h3>
 		<div class="container">
 			<div class="row">
@@ -7,21 +7,21 @@
 				      <a href="#" 
 				      	 class="btn btn-success" 
 				      	 role="button" 
-				      	 ng-click="createNewUser('lg')">Создать</a>
+				      	 ng-click="UserSettingCtrl.createNewUser('lg')">Создать</a>
 				      <a href="#" 
 				      	 class="btn btn-warning" 
 				      	 role="button"
-				      	 ng-disabled="!selectedUser.id"
-				      	 ng-click="!selectedUser.id || editUser('lg')">Изменить</a>
+				      	 ng-disabled="!UserSettingCtrl.selectedUser"
+				      	 ng-click="!UserSettingCtrl.selectedUser || editUser('lg')">Изменить</a>
 				      <a href="#" 
 				      	 class="btn btn-danger" 
 				      	 role="button"
-				      	 ng-disabled="!selectedUser.id"
-				      	 ng-click="!selectedUser.id || deleteUser('lg')">Удалить</a>
+				      	 ng-disabled="!UserSettingCtrl.selectedUser.id"
+				      	 ng-click="!UserSettingCtrl.selectedUser || UserSettingCtrl.deleteUser('lg')">Удалить</a>
 				      <a href="#" 
 				      	 class="btn btn-info" 
 				      	 role="button"
-				      	 ng-click="refreshUserList()">Обновить</a>
+				      	 ng-click="UserSettingCtrl.refreshUserList()">Обновить</a>
 				    </div>
 				</div>	
 			</div>
@@ -36,11 +36,16 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-			        <tr ng-repeat="user in usersList" data-userId="{{user._id}}" check-user ng-class="{'success':userChecked()}">
-			          <td>{{$index+1}}</td>
-			          <td>{{user.surname+' '+user.name+' '+user.lastname}}</td>
-			          <td>{{user.userLogin}}</td>
-			          <td>{{user.email}}</td>
+			        <tr ng-repeat="user in UserSettingCtrl.usersList" 
+			            data-selected-user="UserSettingCtrl.selectedUser"
+			            data-edit-user="UserSettingCtrl.editUser"
+			            data-userId="{{user._id}}" 
+			           	ng-class="{'success': UserSettingCtrl.userChecked(user._id)}"
+			           	check-user>
+				          <td>{{$index+1}}</td>
+				          <td>{{user.surname+' '+user.name+' '+user.lastname}}</td>
+				          <td>{{user.userLogin}}</td>
+				          <td>{{user.email}}</td>
 			        </tr>		               
 			      </tbody>
 				</table>			

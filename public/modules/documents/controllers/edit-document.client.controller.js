@@ -5,43 +5,47 @@
         .controller('EditDocumentController', 
             ['$scope',
              '$log', 
-             '$modalInstance', 
-             'DocumentsService', EditDocumentController]);
+             '$modalInstance',
+             'DocumentsService',
+             'BufferStorage', EditDocumentController]);
 
     //--------//
     
-    function EditDocumentController($scope, $log, $modalInstance, DocumentsService){
+    function EditDocumentController($scope, $log, $modalInstance, DocumentsService, BufferStorage){
         // Отладочная информация
         $log.info('Работает контроллер EditDocumentController');
         
         // Инициализация
-        $scope.documentID = $scope.$parent.selectedDocument;
-        $scope.document = DocumentsService.get({'id': $scope.documentID});
+        var vm = this;        
+
+        
+        vm.documentID = BufferStorage.document.id;
+        vm.document = DocumentsService.get({'id': vm.documentID});
 
         // Закрыть окно редактирования документа
-        $scope.cancel = cancel;
+        vm.cancel = cancel;
 
         // Сохранить измененый документ
-        $scope.applyChanges = applyChanges;
+        vm.applyChanges = applyChanges;
 
         // ------- //
 
         // Функция сохранения изменений в документ
         function applyChanges(){
             $log.info('Сохранить изменения в документе!');
-            DocumentsService.edit($scope.document)
+            DocumentsService.edit(vm.document)
                 .$promise.then(function success(result){
                     $log.info('Изменения успешно сохранены!');
                     $log.debug(result);
-
-                    $scope.$parent.refreshDocsList();
-                    $scope.cancel();                   
+                    
+                    $scope.$emit('edit-user-success');
+                    vm.cancel();                   
 
             }, function error(err){
                 $log.error('При сохранении изменений в документ произовшла ошибка: ');
                 $log.error(err);
                 
-                $scope.message = "Ошибка при сохранении!";
+                vm.message = "Ошибка при сохранении!";
             });
         }
         

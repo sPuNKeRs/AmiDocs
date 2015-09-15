@@ -18,7 +18,7 @@
 			        	    class="form-control" 
 			        		id="doc_number" 
 			        		placeholder="Введите номер документа" 
-			        		ng-model="document.doc_number" 
+			        		ng-model="EditDocCtrl.document.doc_number" 
 			        		required>  
 			      </div>
 			    </div> 
@@ -30,7 +30,7 @@
 			        		class="form-control" 
 			        		id="title" 
 			        		placeholder="Введите наименование" 
-			        		ng-model="document.title" 
+			        		ng-model="EditDocCtrl.document.title" 
 			        		required>  
 			      </div>
 			    </div>		     
@@ -41,7 +41,7 @@
 			    <div class="col-md-6">
 			      <div class="form-group">
 			        <label for="receipt_date">Дата регистрации</label>
-			        <get-calendar></get-calendar>
+			        <get-calendar document="EditDocCtrl.document"></get-calendar>
 			      </div>
 			    </div>
 			    
@@ -52,7 +52,7 @@
 			        	   class="form-control" 
 			        	   id="name" 
 			        	   placeholder="Укажите статус" 
-			        	   ng-model="document.status" 
+			        	   ng-model="EditDocCtrl.document.status" 
 			        	   required>  
 			      </div>
 			    </div>
@@ -67,7 +67,7 @@
 			        		class="form-control" 
 			        		id="lastname" 
 			        		placeholder="Кто создал документ" 
-			        		ng-model="document.creator_id">  
+			        		ng-model="EditDocCtrl.document.creator_id">  
 			       </div>
 			    </div>
 			  </div>
@@ -81,10 +81,10 @@
 
 	    <button class="btn btn-primary" 
 	    		type="button" 
-	    		ng-click="applyChanges()" 
+	    		ng-click="EditDocCtrl.applyChanges()" 
 	    		ng-disabled="">Сохранить</button>
 	    <button class="btn btn-warning" 
 	    		type="button" 
-	    		ng-click="cancel()">Отмена</button>
+	    		ng-click="EditDocCtrl.cancel()">Отмена</button>
 	</div>
 </div>

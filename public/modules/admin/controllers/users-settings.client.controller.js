@@ -5,40 +5,53 @@
         .controller('UsersSettingsController', 
             ['$scope',
              '$log', 
-             '$modal', 
+             '$modal',
+             'BufferStorage',
              'UsersService', UsersSettingsController]);
     
     // -------- //
     
-    function UsersSettingsController($scope, $log, $modal, UsersService){
+    function UsersSettingsController($scope, $log, $modal, BufferStorage, UsersService){
         
         // Инициализация переменных
-        $scope.selectedUser = {
-            id: null,
-            name: null
-        }; 
+        var vm = this;
+
+        vm.selectedUser = BufferStorage.user.id;
+        BufferStorage.clear();
         
         // Загружаем список пользователей
-        $scope.loadUsersList = loadUsersList;
-        $scope.loadUsersList(); // Вызываем функцию
+        vm.loadUsersList = loadUsersList;
+        vm.loadUsersList(); // Вызываем функцию
 
         // Создать нового пользователя
-        $scope.createNewUser = createNewUser;
+        vm.createNewUser = createNewUser;
 
         // Редактировать пользователя
-        $scope.editUser = editUser;
+        vm.editUser = editUser;
 
         // Удалить пользователя
-        $scope.deleteUser = deleteUser;
+        vm.deleteUser = deleteUser;
 
         // Обновить список пользователей
-        $scope.refreshUserList = refreshUserList;
+        vm.refreshUserList = refreshUserList;
+
+        // Выделить пользователя
+        vm.userChecked = userChecked;
 
         // -------- //
 
+        // Функция проверки выделения пользователя
+        function userChecked(userID){
+            if(userID === vm.selectedUser){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
         // Функция загрузки списка пользователей
         function loadUsersList(){
-            $scope.usersList = UsersService.list();
+            vm.usersList = UsersService.list();
         }
 
         // Функиця создание модального окна
@@ -50,11 +63,10 @@
                     animation: true,
                     backdrop: 'static',
                     templateUrl: '/modules/admin/views/users/create-user-modal.client.view.html',
-                    controller: 'CreateUserController',                    
+                    controller: 'CreateUserController',
+                    controllerAs: 'CreateUserCtrl',
                     size: size,
-                    resolve: {
-                            
-                    }
+                    resolve: {}
             });
         }
 
@@ -68,6 +80,7 @@
                     backdrop: 'static',
                     templateUrl: '/modules/admin/views/users/edit-user-modal.client.view.html',
                     controller: 'EditUserController',
+                    controllerAs: 'EditUserCtrl',
                     size: size,
                     resolve: {
                             
@@ -78,7 +91,7 @@
         // Функиця создание модального окна
         // для удаления пользователя
         function deleteUser(size){
-            console.log('Удалить пользователя ' + $scope.selectedUser.id);
+            console.log('Удалить пользователя ' + vm.selectedUser.id);
             var modalInstance = $modal.open({
                     scope: $scope,
                     keyboard: false,
@@ -86,6 +99,7 @@
                     backdrop: 'static',
                     templateUrl: '/modules/admin/views/users/delete-user-modal.client.view.html',
                     controller: 'DeleteUserController',
+                    controllerAs: 'DeleteUserCtrl',
                     size: size,
                     resolve: {
                             
@@ -95,7 +109,7 @@
 
         // Функция для обновления списка пользователей
         function refreshUserList(){
-            $scope.usersList = UsersService.list();
+            vm.usersList = UsersService.list();
         }  
     }
 })(this.angular);

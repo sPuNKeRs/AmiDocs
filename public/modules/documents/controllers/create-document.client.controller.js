@@ -14,15 +14,17 @@
         // Отладочная информация
         $log.info('Работает контроллер CreateDocumentController');
         // Инициализация
-        $scope.document = {
+        var vm = this;
+
+        vm.document = {
             receipt_date: null
         };
 
         // Закрыть модально окно
-        $scope.cancel = cancel;
+        vm.cancel = cancel;
 
         // Создать документ
-        $scope.createNewDocument = createNewDocument;       
+        vm.createNewDocument = createNewDocument;       
         
         // ------ //
 
@@ -33,21 +35,22 @@
 
         // Функция создания нового документа
         function createNewDocument(){
-            if($scope.document){
+            if(vm.document){
                 $log.info('Сохраняем документ: ');
-                $log.debug($scope.document);
-                DocumentsService.create($scope.document).$promise.then(function(){
+                $log.debug(vm.document);
+                DocumentsService.create(vm.document).$promise.then(function(){
                     $log.info('Успешный результат');
                     $log.debug(arguments);
                     
-                    $scope.refreshDocsList();
-                    $scope.cancel();
+                    $scope.$emit('create-document-success');
+
+                    vm.cancel();
                 }, function(err){
                     $log.error('Произошла ошибка: ');
                     $log.error(err.data.error.message);                 
 
-                    $scope.messageClass = ['alert', 'alert-danger'];
-                    $scope.message = err.data.error.message;                
+                    vm.messageClass = ['alert', 'alert-danger'];
+                    vm.message = err.data.error.message;                
                 });             
             }
         }   

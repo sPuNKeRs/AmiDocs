@@ -1,5 +1,5 @@
 <div amidocs-menu menu-title="AmiDocs"></div>
-<div ng-controller="DocumentsController">
+<div ng-controller="DocumentsController as DocCtrl">
 	<div class="container">
 		<div class="row">
 			<div class="well">
@@ -7,25 +7,25 @@
 			      <a href="#!/docs" 
 			      	 class="btn btn-success" 
 			      	 role="button" 
-			      	 ng-click="createNewDoc('lg')">Создать</a>
+			      	 ng-click="DocCtrl.createNewDoc('lg')">Создать</a>
 			      <a href="#!/docs" 
 			      	 class="btn btn-warning" 
 			      	 role="button"
-			      	 ng-disabled="!selectedDocument"
-			      	 ng-click="!selectedDocument || editDocument('lg')">Изменить</a>
+			      	 ng-disabled="!DocCtrl.selectedDocument"
+			      	 ng-click="!DocCtrl.selectedDocument || DocCtrl.editDocument('lg')">Изменить</a>
 			      <a href="#!/docs" 
 			      	 class="btn btn-danger" 
 			      	 role="button"
-			      	 ng-disabled="!selectedDocument"
-			      	 ng-click="!selectedDocument || deleteDocument('lg')">Удалить</a>
+			      	 ng-disabled="!DocCtrl.selectedDocument"
+			      	 ng-click="!DocCtrl.selectedDocument || DocCtrl.deleteDocument('lg')">Удалить</a>
 			      <a href="#!/docs" 
 			      	 class="btn btn-info" 
 			      	 role="button"
-			      	 ng-click="refreshDocsList()">Обновить</a>
+			      	 ng-click="DocCtrl.refreshDocsList()">Обновить</a>
 			    </div>
 			</div>	
 			</div>
-			<div class="row" cg-busy="[Documents]">
+			<div class="row" cg-busy="[DocCtrl.Documents]">
 				<table class="table table-hover">
 			      <thead>
 			        <tr>
@@ -38,9 +38,11 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-			        <tr ng-repeat="document in Documents" 
+			        <tr ng-repeat="document in DocCtrl.Documents" 
+			        	ng-class="{'success': DocCtrl.documentCheck(document._id)}"
 			        	data-documentId="{{document._id}}"
-			        	ng-class="{'success':documentChecked()}"			        	
+			        	data-selected-document = "DocCtrl.selectedDocument"
+			        	data-edit-document="DocCtrl.editDocument"			        	
 			        	document-selected>
 
 			          <td>{{$index+1}}</td>
@@ -55,6 +57,4 @@
 				</table>			
 			</div>	
 		</div>
-</div>	
 </div>
-

@@ -1,90 +1,120 @@
 ;(function(A){
-	'use strict';
-	A.module('Documents')
-		.controller('DocumentsController', 
-			['$scope',
-			 '$log', 
-			 '$modal', 
-			 'DocumentsService', DocumentsController]);
+    'use strict';
+    A.module('Documents')
+        .controller('DocumentsController', 
+            ['$scope',
+             '$log', 
+             '$modal',
+             'BufferStorage', 
+             'DocumentsService', DocumentsController]);
 
-	//--------//
+    //--------//
 
-	function DocumentsController($scope, $log, $modal, DocumentsService){
-		// Отладочная информация
-		$log.info('Работает контроллер DocumentsController');
-		
-		// Инициализация
-		$scope.Documents = DocumentsService.list();
-		$scope.selectedDocument = '';
+    function DocumentsController($scope, $log, $modal, BufferStorage, DocumentsService){
+        // Отладочная информация
+        $log.info('Работает контроллер DocumentsController');
+        
+        // Инициализация
+        var vm = this;
 
-		// Обновить список документов
-		$scope.refreshDocsList = refreshDocsList;
+        vm.Documents = DocumentsService.list();
+        vm.selectedDocument = BufferStorage.document.id;        
+        BufferStorage.clear();
 
-		// Создать новый документ
-		$scope.createNewDoc = createNewDoc;
+        // Выделение документа
+        vm.documentCheck = documentCheck;
 
-		// Редактировать документ
-		$scope.editDocument = editDocument;
+        // Обновить список документов
+        vm.refreshDocsList = refreshDocsList;
 
-		// Удалить выбранный документ
-		$scope.deleteDocument = deleteDocument;
+        // Если документ изменен успешно
+        $scope.$on('edit-user-success', function(){
+            vm.refreshDocsList();
+        });
 
-		//--------//
+        // Если создан новый докумен
+        $scope.$on('create-document-success', function(){
+            vm.refreshDocsList();
+        });
 
-		// Функция удаления документа по id
-		function deleteDocument(size){
-			var modalInstance = $modal.open({
-					scope: $scope,
-					keyboard: false,
-					animation: true,
-					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/delete-document-modal.client.view.html',
-			      	controller: 'DeleteDocumentController',	
-			      	controllerAs: 'DeleteDocCtrl',		      	
-			      	size: size,
-			      	resolve: {		        		
-			    	}
-    		});
-		}
+        // Если удален документ
+        $scope.$on('delete-document-success', function(){
+            vm.refreshDocsList();
+        });
 
-		// Функция обновления списка документов
-		function refreshDocsList(){
-			$scope.selectedDocument = '';
-			$scope.Documents = DocumentsService.list();
-		}
-		
-		// Функция вызова модального окна
-		// для редактирования выбранного документа
-		function editDocument (size){
-			var modalInstance = $modal.open({
-					scope: $scope,
-					keyboard: false,
-					animation: true,
-					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/edit-document-modal.client.view.html',
-			      	controller: 'EditDocumentController',
-			      	controllerAs: 'EditDocCtrl',			      	
-			      	size: size,
-			      	resolve: {		        		
-			    	}
-    		});
-		}
+        // Создать новый документ
+        vm.createNewDoc = createNewDoc;
 
-		// Функция вызова модельного окна
-		// для создания нового документа
-		function createNewDoc(size){
-			var modalInstance = $modal.open({
-					scope: $scope,
-					keyboard: false,
-					animation: true,
-					backdrop: 'static',
-			      	templateUrl: '/modules/documents/views/create-document-modal.client.view.html',
-			      	controller: 'CreateDocumentController',
-			      	controllerAs: 'CreateDocCtrl',
-			      	size: size,
-			      	resolve: {		        		
-			    	}
-    		});
-		}
-	}
+        // Редактировать документ
+        vm.editDocument = editDocument;
+
+        // Удалить выбранный документ
+        vm.deleteDocument = deleteDocument;
+
+        //--------//
+
+        // Проверка выделения докумнета
+        function documentCheck(attrID){
+            if(vm.selectedDocument === attrID){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        // Функция удаления документа по id
+        function deleteDocument(size){
+            var modalInstance = $modal.open({
+                    scope: $scope,
+                    keyboard: false,
+                    animation: true,
+                    backdrop: 'static',
+                    templateUrl: '/modules/documents/views/delete-document-modal.client.view.html',
+                    controller: 'DeleteDocumentController', 
+                    controllerAs: 'DeleteDocCtrl',              
+                    size: size,
+                    resolve: {}
+            });
+        }
+
+        // Функция обновления списка документов
+        function refreshDocsList(){
+            //$scope.selectedDocument = '';
+            BufferStorage.clear();
+            vm.Documents = DocumentsService.list();
+        }
+        
+        // Функция вызова модального окна
+        // для редактирования выбранного документа
+        function editDocument (size){
+            var modalInstance = $modal.open({
+                    scope: $scope,
+                    keyboard: false,
+                    animation: true,
+                    backdrop: 'static',
+                    templateUrl: '/modules/documents/views/edit-document-modal.client.view.html',
+                    controller: 'EditDocumentController',
+                    controllerAs: 'EditDocCtrl',                    
+                    size: size,
+                    resolve: {}
+                    
+            });
+        }
+
+        // Функция вызова модельного окна
+        // для создания нового документа
+        function createNewDoc(size){
+            var modalInstance = $modal.open({
+                    scope: $scope,
+                    keyboard: false,
+                    animation: true,
+                    backdrop: 'static',
+                    templateUrl: '/modules/documents/views/create-document-modal.client.view.html',
+                    controller: 'CreateDocumentController',
+                    controllerAs: 'CreateDocCtrl',
+                    size: size,
+                    resolve: {}
+            });
+        }
+    }
 })(this.angular);

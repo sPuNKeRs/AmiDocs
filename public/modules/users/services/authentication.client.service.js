@@ -1,5 +1,5 @@
 ;(function(A){
-    'use sctrict';
+    'use strict';
 
     A.module('Users')
         .service('Authentication', 

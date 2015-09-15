@@ -1,47 +1,34 @@
 ;(function(A){
     'use strict';
 
-    var linkFn;
-
-    linkFn = function($scope, element, attrs){
-        var parentScope = $scope.$parent;
-        
-        // Клик
-        element.click(function(e){
-            //console.log(e);
-            parentScope.$apply(function(){
-                if(parentScope.selectedDocument == attrs.documentid){
-                    parentScope.selectedDocument = {};
-                }else{
-                    parentScope.selectedDocument = attrs.documentid;            
-                }                       
-            });                 
-        });
-
-        // Двойной клик
-        element.dblclick(function(e){
-            //console.log(e);
-            parentScope.$apply(function(){
-                parentScope.selectedDocument = attrs.documentid;    
-                parentScope.editDocument();
-            });
-            //console.log('Двойной клик на '+attrs.documentid);
-        });
-
-        $scope.documentChecked = function(){
-            
-            if(parentScope.selectedDocument == attrs.documentid){
-                return true;
-            }else{
-                return false;
-            }                       
-        };  
-    };
-
-    A.module(ApplicationConfiguration.applicationModuleName).directive('documentSelected', [function(){
+    A.module('Documents')
+        .directive('documentSelected', ['BufferStorage', function(BufferStorage){
         return {
-            restrict: 'A',          
-            link: linkFn
+            scope:{
+                editDocument: '=',
+                selectedDocument: '='
+            },
+            restrict: 'A',
+            link: function($scope, element, attrs){
+                               
+                // Клик
+                element.bind('click', function(e){                    
+                    $scope.$apply(function(){
+                        if($scope.selectedDocument=== attrs.documentid){
+                            $scope.selectedDocument = '';
+                            BufferStorage.clear();
+                        }else{
+                            $scope.selectedDocument = BufferStorage.document.id = attrs.documentid;
+                        }
+                    });                    
+                });
+
+                // Двойной клик
+                element.bind('dblclick', function(e){
+                    $scope.selectedDocument = BufferStorage.document.id = attrs.documentid;
+                    $scope.editDocument('lg');                    
+                });                          
+            }
         };
     }]);
 })(this.angular);
