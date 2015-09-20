@@ -5,37 +5,43 @@
         .controller('DeleteUserController', 
             ['$scope',
              '$log',
-             '$modalInstance', 
+             '$modalInstance',
+             'BufferStorage',
              'UsersService', DeleteUserController]);
     
     // -------- //
 
-    function DeleteUserController($scope, $log, $modalInstance, UsersService){
+    function DeleteUserController($scope, $log, $modalInstance, BufferStorage, UsersService){
+        // Инициализация
+        var vm = this;
+
         // Отладочная информация
         $log.info('Выполняется контроллер DeleteUserController');
         
         // Инцициализация переменных
-        $scope.userId = $scope.$parent.selectedUser.id;
+        vm.userId = BufferStorage.user.id;
         // Загрузка пользователя
-        $scope.user = UsersService.get({'id': $scope.userId});
+        vm.user = UsersService.get({'id': vm.userId});
 
         // Удаление пользователя
-        $scope.deleteUser = deleteUser;
+        vm.deleteUser = deleteUser;
                     
         // Функция отмены
-        $scope.cancel = cancel;
+        vm.cancel = cancel;
 
         // -------- //
 
         // Функция удаления пользователя по id
         function deleteUser(){
-            $log.warn('Удаляем пользователя ' + $scope.userId);
-            if($scope.userId !== ''){
-                UsersService.delete({'id': $scope.userId}).$promise.then(function(result){
+            $log.warn('Удаляем пользователя ' + vm.userId);
+            if(vm.userId !== ''){
+                UsersService.delete({'id': vm.userId}).$promise.then(function(result){
                     if(result.deleteResult){
+                        $log.warn('Пользоваетль успешно удален');
+                        $scope.$emit('delete-user-success');
                         cancel();
                     }else{
-                        $scope.message = "Ошибка или пользователь не существует!";
+                        vm.message = "Ошибка или пользователь не существует!";
                     }                    
                 });
             }
@@ -43,8 +49,7 @@
 
         // Функция закрытия окна
         function cancel(){
-            $modalInstance.dismiss('cancel');
-            $scope.$parent.refreshUserList();
+            $modalInstance.dismiss('cancel');            
         }
     }
 })(this.angular);

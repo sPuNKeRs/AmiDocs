@@ -69,6 +69,9 @@
                     resolve: {}
             });
         }
+        $scope.$on('create-user-success', function(){
+            vm.refreshUserList();
+        });
 
         // Функиця создание модального окна
         // для изменения данных пользователя
@@ -87,6 +90,9 @@
                     }
             });
         }
+        $scope.$on('edit-user-success', function(){
+            vm.refreshUserList();
+        });
 
         // Функиця создание модального окна
         // для удаления пользователя
@@ -106,6 +112,9 @@
                     }
             });
         }
+        $scope.$on('delete-user-success', function(){
+            vm.refreshUserList();
+        });
 
         // Функция для обновления списка пользователей
         function refreshUserList(){

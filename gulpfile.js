@@ -23,9 +23,10 @@ var serverJsFiles = [
     './config/**/*.js'
 ];
 
-var clientJsFiles = [
+var clientFiles = [
     './public/*.js', 
-    './public/modules/**/*.js'
+    './public/modules/**/*.js',
+    './public/**/*.html'
 ];
 
 //  Задания
@@ -66,7 +67,7 @@ gulp.task('watch', function(){
 
     //Следим за клиентской стороной
     gulp.watch('public/**/*.*', ['jshint_front']);
-    gulp.watch( clientJsFiles ).on( 'change', function(file){
+    gulp.watch( clientFiles ).on( 'change', function(file){
         livereload.changed( file.path )
     });
 });

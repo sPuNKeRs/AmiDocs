@@ -12,11 +12,11 @@
 				      	 class="btn btn-warning" 
 				      	 role="button"
 				      	 ng-disabled="!UserSettingCtrl.selectedUser"
-				      	 ng-click="!UserSettingCtrl.selectedUser || editUser('lg')">Изменить</a>
+				      	 ng-click="!UserSettingCtrl.selectedUser || UserSettingCtrl.editUser('lg')">Изменить</a>
 				      <a href="#" 
 				      	 class="btn btn-danger" 
 				      	 role="button"
-				      	 ng-disabled="!UserSettingCtrl.selectedUser.id"
+				      	 ng-disabled="!UserSettingCtrl.selectedUser"
 				      	 ng-click="!UserSettingCtrl.selectedUser || UserSettingCtrl.deleteUser('lg')">Удалить</a>
 				      <a href="#" 
 				      	 class="btn btn-info" 

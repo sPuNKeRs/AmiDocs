@@ -5,53 +5,58 @@
         .controller('EditUserController', 
             ['$scope',
              '$log', 
-             '$modalInstance', 
+             '$modalInstance',
+             'BufferStorage',
              'UsersService', EditUserController]);
 
     // -------- //
     
-    function EditUserController($scope, $log, $modalInstance, UsersService){
+    function EditUserController($scope, $log, $modalInstance, BufferStorage, UsersService){
         // Отладочная информация
         $log.info('Выполняется контроллер EditUserController');
 
         // Инцициализация переменных
-        $scope.userId = $scope.$parent.selectedUser.id;        
+        var vm = this;
+
+        vm.userId = BufferStorage.user.id;
 
         // Загрузка пользователя
-        $scope.user = UsersService.get({'id': $scope.userId});
+        vm.user = UsersService.get({'id': vm.userId});
 
         // Сохранить изменения пользователя
-        $scope.applyChange = applyChange;
+        vm.applyChange = applyChange;
 
         // Закрыть модальное окно
-        $scope.cancel = cancel;
+        vm.cancel = cancel;
         
         // -------- //
                     
         // Функция отмены
         function cancel(){
-            $modalInstance.dismiss('cancel');
-            $scope.$parent.refreshUserList();
+            $modalInstance.dismiss('cancel');            
         }
 
         //Функия сохранения изменений свойств пользователя
         function applyChange(){
-            if($scope.userId){
-                UsersService.edit($scope.userId, $scope.user)
+            if(vm.userId){
+                UsersService.edit(vm.userId, vm.user)
                     .$promise.then(
                         function(result){
                             $log.info('Изменения пользователя успешно сохранены.');
                             $log.debug(result);                            
                             
-                            $scope.message = "Данные успешно сохранены!";
-                            $scope.resultState = ['alert', 'alert-success'];
+                            vm.message = "Данные успешно сохранены!";
+                            vm.resultState = ['alert', 'alert-success'];
+                            $scope.$emit('edit-user-success');
+                            vm.cancel();
+
                         },
                         function(err){
                             $log.error('Ошибка при изменении пользователя: ');                            
                             $log.error(err.data);
 
-                            $scope.message = err.data;
-                            $scope.resultState = ['alert', 'alert-danger'];
+                            vm.message = err.data;
+                            vm.resultState = ['alert', 'alert-danger'];
                         }
                     );
             }

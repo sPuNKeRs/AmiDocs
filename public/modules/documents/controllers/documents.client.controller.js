@@ -5,14 +5,18 @@
             ['$scope',
              '$log', 
              '$modal',
-             'BufferStorage', 
+             'BufferStorage',
+             'AppSettings',
              'DocumentsService', DocumentsController]);
 
     //--------//
 
-    function DocumentsController($scope, $log, $modal, BufferStorage, DocumentsService){
+    function DocumentsController($scope, $log, $modal, BufferStorage, AppSettings, DocumentsService){
         // Отладочная информация
         $log.info('Работает контроллер DocumentsController');
+
+        $log.info(AppSettings.options);
+        
         
         // Инициализация
         var vm = this;

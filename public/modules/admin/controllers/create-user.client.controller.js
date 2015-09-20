@@ -11,42 +11,46 @@
     // ------ //
      
     function CreateUserController($scope, $log, $modalInstance, UsersService){
+        // Инициализация переменных
+        var vm = this;
         // Отладочная информация
         $log.info('Выполняется контроллер CreateUserController');
 
+
         // Закрыть окно
-        $scope.cancel = cancel;
+        vm.cancel = cancel;
         
         // Создать пользователя
-        $scope.createNewUser = createNewUser;
+        vm.createNewUser = createNewUser;
         
         // -------- //                        
 
         // Функция отмены
         function cancel(){
-            $modalInstance.dismiss('cancel');
-            $scope.$parent.refreshUserList();
+            $modalInstance.dismiss('cancel');            
         }
 
         //Функция создания нового пользователя      
-        function createNewUser(form){
-            if(form.$valid){
-                if($scope.user.password !== $scope.user.repassword){
-                    $scope.message = "Пароль и повтор пароля не совпадают!";
-                    $scope.messageClass = ['alert', 'alert-danger'];
-                    $scope.verifyPassword = ['has-error'];
+        function createNewUser(){
+            if(vm.createUserForm.$valid){
+                if(vm.user.password !== vm.user.repassword){
+                    vm.message = "Пароль и повтор пароля не совпадают!";
+                    vm.messageClass = ['alert', 'alert-danger'];
+                    vm.verifyPassword = ['has-error'];
                 }else{
-                    $scope.message = "Все заполненно!";
-                    $scope.messageClass = ['alert', 'alert-success'];
-                    $scope.verifyPassword = [];
+                    vm.message = "Все заполненно!";
+                    vm.messageClass = ['alert', 'alert-success'];
+                    vm.verifyPassword = [];
 
-                    UsersService.create($scope.user).$promise.then(
+                    UsersService.create(vm.user).$promise.then(
                         function(results){
                             if(results.errorMsg){
-                                $scope.messageClass = ['alert', 'alert-danger'];
-                                $scope.message = results.errorMsg;
+                                vm.messageClass = ['alert', 'alert-danger'];
+                                vm.message = results.errorMsg;
                             }else{
-                                $scope.cancel();
+                                $log.info('Пользователь успешно создан.');
+                                $scope.$emit('create-user-success');
+                                vm.cancel();
                             }                                
                     });
                 }

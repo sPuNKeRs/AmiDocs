@@ -1,14 +1,15 @@
 {
-	"name": "amidocs",
-	"version": "0.0.1",
-	"description": "Amidocs - система электронного документооборота",
-	"dependencies": {
-		"bootstrap": "~3",
-		"angular": "~1.4",
-		"angular-resource": "~1.4",
-		"angular-animate": "~1.4",		
-		"angular-bootstrap": "~0.13",		
-		"angular-ui-utils": "~1",
-		"angular-ui-router": "~0.2"
-	}
+  "name": "amidocs",
+  "version": "0.0.1",
+  "description": "Amidocs - система электронного документооборота",
+  "dependencies": {
+    "angular": "~1.4",
+    "angular-animate": "~1.4",
+    "angular-bootstrap": "~0.13",
+    "angular-moment": "~0.10.3",
+    "angular-resource": "~1.4",
+    "angular-ui-router": "~0.2",
+    "angular-ui-utils": "~1",
+    "bootstrap": "~3"
+  }
 }
