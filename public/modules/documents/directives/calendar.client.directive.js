@@ -4,8 +4,6 @@
 	var linkFn;
 
 	linkFn = function(scope, element, attrs){
-
-		//console.log(scope.document);
 		// Настройка календаря		
 		// Получить текущую дату
 		scope.today = function(){
@@ -45,6 +43,8 @@
 	  	scope.status = {
 		   opened: false
 		 };
+
+		 
 		
 	};
 

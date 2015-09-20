@@ -21,6 +21,7 @@
         
         vm.documentID = BufferStorage.document.id;
         vm.document = DocumentsService.get({'id': vm.documentID});
+        $log.debug(vm.document);
 
         // Закрыть окно редактирования документа
         vm.cancel = cancel;

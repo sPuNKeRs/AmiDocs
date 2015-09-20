@@ -22,6 +22,8 @@
         var vm = this;
 
         vm.Documents = DocumentsService.list();
+        $log.debug(vm.Documents);
+
         vm.selectedDocument = BufferStorage.document.id;        
         BufferStorage.clear();
 
@@ -59,7 +61,7 @@
 
         // Проверка выделения докумнета
         function documentCheck(attrID){
-            if(vm.selectedDocument === attrID){
+            if(vm.selectedDocument == attrID){
                 return true;
             }else{
                 return false;

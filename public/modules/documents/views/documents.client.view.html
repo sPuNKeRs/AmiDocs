@@ -40,8 +40,8 @@
 			      <tbody>
 			        <tr ng-repeat="document in DocCtrl.Documents"
 			        	class="noselect" 
-			        	ng-class="{'success': DocCtrl.documentCheck(document._id)}"
-			        	data-documentId="{{document._id}}"
+			        	ng-class="{'success': DocCtrl.documentCheck(document.id)}"
+			        	data-documentId="{{document.id}}"
 			        	data-selected-document = "DocCtrl.selectedDocument"
 			        	data-edit-document="DocCtrl.editDocument"			        	
 			        	document-selected>

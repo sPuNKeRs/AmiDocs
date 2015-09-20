@@ -18,6 +18,6 @@ var mysqlConnectionString = {
         }
 
     }
-}
+};
 
 module.exports.mysqlConnectionString = mysqlConnectionString;

@@ -14,7 +14,7 @@
         var vm = this;
         var Config = $resource('/config');
         vm.options = {};
-        getConfigFromServer();
+        //getConfigFromServer();
 
         vm.loadConfig = getConfigFromServer;
 

@@ -11,12 +11,12 @@
 		app.route('/docs')
 			.get(users.checkAuth, 
 				 aclCtrl.checkPermission('docs', 'get'), 
-				 documents.getDocumentsList);
+				 documents.getAllDocuments);
 		// Создать документ
 		app.route('/docs')
 			.put(users.checkAuth, 
 				 aclCtrl.checkPermission('docs', 'put'), 
-				 documents.createNewDocument);
+				 documents.createDocument);
 
 		// Получить документ по ID
 		app.route('/docs/:id')
@@ -28,13 +28,13 @@
 		app.route('/docs')
 			.post(users.checkAuth, 
 				 aclCtrl.checkPermission('docs', 'post'), 
-				 documents.saveChangesDocument);
+				 documents.updateDocumentById);
 
 		// Удалить документ по ID
 		app.route('/docs/:id')
 			.delete(users.checkAuth, 
 				 aclCtrl.checkPermission('docs', 'post'), 
-				 documents.deleteDocument);
+				 documents.deleteDocumentById);
 		
 	};	
 })();

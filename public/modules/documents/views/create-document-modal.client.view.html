@@ -3,86 +3,89 @@
 </div>
 <div class="modal-body">
     <form role="form" name="createDocForm">
-		<div class="panel panel-default">
-		  <div class="panel-heading">
-		    <h3 class="panel-title">Общие данные:</h3>
-		  </div>
-		  <div class="panel-body">
-		  <div class="row">
-		    
-		    <div class="col-md-6">
-		      <div class="form-group">
-		        <label for="doc_number">Номер документа</label>
-		        <input  type="text" 
-		        	    class="form-control" 
-		        		id="doc_number" 
-		        		placeholder="Введите номер документа" 
-		        		ng-model="CreateDocCtrl.document.doc_number" 
-		        		required>  
-		      </div>
-		    </div> 
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Общие данные:</h3>
+          </div>
+          <div class="panel-body">
+          <div class="row">
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="doc_number">Номер документа</label>
+                <input  type="text" 
+                        class="form-control" 
+                        id="doc_number" 
+                        placeholder="Введите номер документа" 
+                        ng-model="CreateDocCtrl.document.doc_number" 
+                        required>  
+              </div>
+            </div> 
 
-		    <div class="col-md-6">
-		      <div class="form-group" ng-class="verifyPassword">
-		        <label for="title">Наименование</label>
-		        <input  type="text" 
-		        		class="form-control" 
-		        		id="title" 
-		        		placeholder="Введите наименование" 
-		        		ng-model="CreateDocCtrl.document.title" 
-		        		required>  
-		      </div>
-		    </div>		     
+            <div class="col-md-6">
+              <div class="form-group" ng-class="verifyPassword">
+                <label for="title">Наименование</label>
+                <input  type="text" 
+                        class="form-control" 
+                        id="title" 
+                        placeholder="Введите наименование" 
+                        ng-model="CreateDocCtrl.document.title" 
+                        required>  
+              </div>
+            </div>           
 
-		  </div>
+          </div>
 
-		  <div class="row">
-		    <div class="col-md-6">
-		      <div class="form-group">
-		        <label for="receipt_date">Дата регистрации</label>
-		        <get-calendar document="CreateDocCtrl.document"></get-calendar>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-6">
-		      <div class="form-group">
-		        <label for="status">Статус</label>
-		        <input type="text" 
-		        	   class="form-control" 
-		        	   id="name" 
-		        	   placeholder="Укажите статус" 
-		        	   ng-model="CreateDocCtrl.document.status" 
-		        	   required>  
-		      </div>
-		    </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="receipt_date">Дата регистрации</label>
+                <get-calendar document="CreateDocCtrl.document"></get-calendar>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="status">Статус</label>
+                <select name="status" 
+                        class="form-control"
 
-		    
-		  </div>
-		  <div class="row">
-		  	<div class="col-md-6">
-		      <div class="form-group">
-		        <label for="creator_id">Создал</label>
-		        <input  type="text" 
-		        		class="form-control" 
-		        		id="lastname" 
-		        		placeholder="Кто создал документ" 
-		        		ng-model="CreateDocCtrl.document.creator_id">  
-		       </div>
-		    </div>
-		  </div>
-		    
-		  </div>
-		</div>			
-	</form>        
+                        ng-model="CreateDocCtrl.document.status"
+                        required>
+                            <option value="">Выберите статус</option>
+                            <option selected="true" value="0">Не выполнен</option>
+                            <option value="1">Выполнен</option>
+                </select>                 
+              </div>
+            </div>
+
+            
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description">Описание</label>
+                
+                <textarea class="form-control" 
+                          rows="6"
+                          id="description"
+                          ng-model="CreateDocCtrl.document.description"></textarea>
+               </div>
+            </div>
+          </div>
+            
+          </div>
+        </div>          
+    </form>        
 </div>
 <div class="modal-footer">
-	<div class="pull-left" ng-class="CreateDocCtrl.messageClass">{{CreateDocCtrl.message}}</div>
+    <div class="pull-left" ng-class="CreateDocCtrl.messageClass">{{CreateDocCtrl.message}}</div>
 
     <button class="btn btn-primary" 
-    		type="button" 
-    		ng-click="CreateDocCtrl.createNewDocument()" 
-    		ng-disabled="">Создать</button>
+            type="button" 
+            ng-click="CreateDocCtrl.createNewDocument()" 
+            ng-disabled="createDocForm.$invalid">Создать</button>
     <button class="btn btn-warning" 
-    		type="button" 
-    		ng-click="CreateDocCtrl.cancel()">Отмена</button>
+            type="button" 
+            ng-click="CreateDocCtrl.cancel()">Отмена</button>
 </div>

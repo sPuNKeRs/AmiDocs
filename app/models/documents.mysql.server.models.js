@@ -6,6 +6,9 @@ var DocumentsModel = {
     // Создать новый документ
     createDocument: function(documentData, callback){
 
+        console.log('Передали: ');
+        console.log(documentData);
+
         var insertStatement = "INSERT INTO `amidocs`.`documents` SET?";
 
         var document = {
@@ -17,7 +20,7 @@ var DocumentsModel = {
                 update_date: moment(new Date()).toDate(),
                 status: documentData.status,
                 creator_id: documentData.creator_id
-        }
+        };
 
         var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
 
@@ -44,14 +47,12 @@ var DocumentsModel = {
                 if(err) { throw err;}
 
                 callback(result);
-                //console.log(result);
-
             });
         }
     },
     // Получить документ по ID
     getDocumentById: function(documentID, callback){
-        var selectStatement = "SELECT * FROM `amidocs`.`documents` WHERE id=" + documentID + ";";
+        var selectStatement = "SELECT * FROM `amidocs`.`documents` WHERE id=" + documentID + " LIMIT 1;";
 
         var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
 
@@ -60,9 +61,7 @@ var DocumentsModel = {
             connection.query(selectStatement, function(err, result){
                 if(err) { throw err;}
 
-                callback(result);
-                //console.log(result);
-
+                callback(result[0]);
             });
         }
     },
@@ -79,19 +78,33 @@ var DocumentsModel = {
                 receipt_date: changedDocument.receipt_date,
                 update_date: moment(new Date()).toDate(),
                 status: changedDocument.status
-        }
+        };
 
         if(connection){
 
             connection.query(updateStatement, document, function(err, result){
                 if(err) { throw err;}
 
-                //callback({status: 'success'});
-                callback(result);
-                //console.log(result);
+                callback(result);                
+            });
+        }
+    },
+    // Удалить документ по ID
+    deleteDocumentById: function(documentID, callback){
+        var deleteStatement = "DELETE FROM `amidocs`.`documents` WHERE `id`=" + documentID + " LIMIT 1;";
+
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
+
+        if(connection){
+
+            connection.query(deleteStatement, function(err, result){
+                if(err) { throw err;}
+
+                callback({status: "success"});
+                console.log(result);
             });
         }
     }
-}
+};
 
 module.exports = DocumentsModel;

@@ -28,7 +28,7 @@
         // Удаление документа
         function deleteDocument(){
             $log.warn('Удаляем документ ' + vm.document.doc_number);
-            DocumentsService.delete({id: vm.document._id}).$promise.then(
+            DocumentsService.delete({id: vm.document.id}).$promise.then(
                 function success(result){
                     $log.info('Документ успешно удален!');
 

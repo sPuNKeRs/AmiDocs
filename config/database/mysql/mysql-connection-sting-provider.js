@@ -31,6 +31,6 @@ mysqlConnectionProvider = {
             });
         }
     }
-}
+};
 
 module.exports.mysqlConnectionProvider = mysqlConnectionProvider;

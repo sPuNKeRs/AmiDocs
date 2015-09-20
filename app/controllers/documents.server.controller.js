@@ -3,52 +3,45 @@
 
     // Подключаем зависимости
     var async = require('async');
-    var Document = require('../../app/models/document.server.models.js').Document;
+    //var Document = require('../../app/models/document.server.models.js').Document;
+    var Document = require('../models/documents.mysql.server.models.js');
 
     // Получить список всех документов
-    exports.getDocumentsList = function(req, res){
-        console.log('Получить список всех документов!');
-        Document.getDocumentsList(function(err, results){
-            if(err) throw err;
-
-            console.log(results);
-            res.status(200).json(results);
-        }); 
-    };
+    exports.getAllDocuments = getAllDocuments;
 
     // Создать новый документ
-    exports.createNewDocument = createNewDocument;
+    exports.createDocument = createDocument;
 
     // Получить документ по ID
     exports.getDocumentById = getDocumentById;
 
     // Сохранить изменения в документ
-    exports.saveChangesDocument = saveChangesDocument;
+    exports.updateDocumentById = updateDocumentById;
 
     // Удалить документ по ID
-    exports.deleteDocument = deleteDocument;
+    exports.deleteDocumentById = deleteDocumentById;
 
     // ----- //
+    // Получить список всех документов
+    function getAllDocuments(req, res){
+        console.log('Получить список всех документов!');
+        Document.getAllDocuments(function(results){
+            console.log(results);
+            res.status(200).json(results);
+        }); 
+    }
 
     // Функция сохранения изменений в документ
-    function saveChangesDocument(req, res, next){
-        console.log('Сохраняем изменения в документ - ' + req.body._id);
+    function updateDocumentById(req, res, next){
+        console.log('Сохраняем изменения в документ - ' + req.body.id);
         var changedDocument = req.body;
-        var documentID = changedDocument._id;
+        var documentID = changedDocument.id;
 
-        Document.saveChangesDocument(documentID, changedDocument, function(err, result){
-            if(err){
-                console.log('Ошибка при сохранении изменений: ');
-                console.log(err);
-                res.status(500).json({error: err});
-                next(err);
-            }else{
-                console.log('Успешное сохранение изменений!');
-                console.log(result);
-                res.status(200).json(result);
-            }
-        });
-        
+        Document.updateDocumentById(documentID, changedDocument, function(result){
+            console.log('Успешное сохранение изменений!');
+            console.log(result);
+            res.status(200).json(result);            
+        });        
     }
 
     // Функция для загрузки документа по ID
@@ -56,54 +49,40 @@
         var documentID = req.params.id;
         console.log('Получить документ по ID: ' + documentID);
 
-        Document.getDocumentById(documentID, function(err, result){
-            if(err){
-                console.log(err);
-                res.status(500).json({error: err});
-                next(err);
-            }else{
-                console.log(result);
-                res.status(200).json(result);
-            }
+        Document.getDocumentById(documentID, function(result){
+            console.log(result);
+            res.status(200).json(result);            
         });
     }
 
     // Функция создания нового документа
-    function createNewDocument (req, res, next){
+    function createDocument (req, res, next){
         console.log('Создаем новый документ!');
-        var newDocument = new Document(req.body);
+        var newDocument = req.body;
+        newDocument.creator_id = req.user.userId;
 
-        newDocument.save(function(err, result){
-            if(err){
-                res.status(500).json({error: err});
-                next(err);
-            }else{
-                console.log('Документ успешно создан!');
-                console.log(result);
-                res.status(200).json(result);
-            }       
+        console.log(newDocument);
+
+        Document.createDocument(newDocument, function(result){
+            console.log(result);
+            res.status(200).json('{status: "success"}');
         });
+
+        
+
     }
 
     // Функция удаления документа по id
-    function deleteDocument(req, res, next){
+    function deleteDocumentById(req, res, next){
         // Инициализация 
         var documentID = req.params.id;
         console.log('Удаляем документ: ' + documentID);
         if(documentID){
-            Document.deleteDocumentById(documentID, function(err, result){
-                if(err){
-                    console.log('Ошибка при удалении документа: ');
-                    console.log(err);
-                    res.status(500).json({error: err});
-                    next(err);
-                }else{
-                    console.log('Успешное удаление: ');
-                    console.log(result);
-                    res.status(200).json(result);
-                }
+            Document.deleteDocumentById(documentID, function(result){
+                console.log('Успешное удаление: ');
+                console.log(result);
+                res.status(200).json(result);                
             });
         }
     }
-
 })();
