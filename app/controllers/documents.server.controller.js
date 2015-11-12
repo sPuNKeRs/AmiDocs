@@ -2,8 +2,7 @@
     'use strict';
 
     // Подключаем зависимости
-    var async = require('async');
-    //var Document = require('../../app/models/document.server.models.js').Document;
+    var async = require('async');    
     var Document = require('../models/documents.mysql.server.models.js');
 
     // Получить список всех документов
@@ -67,9 +66,6 @@
             console.log(result);
             res.status(200).json('{status: "success"}');
         });
-
-        
-
     }
 
     // Функция удаления документа по id
