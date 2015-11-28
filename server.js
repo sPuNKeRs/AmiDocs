@@ -24,6 +24,21 @@ mongoose.connection.on('error', function(err){
 });
 mongoose.connection.on('disconnected', connect);
 
+
+
+//////////////////////
+console.log('////////////////////////////////////////////////////////////////////////');
+console.log(' ');
+
+	var test = require('./app/models/user.mysql.server.model.js');
+	
+console.log(' ');
+console.log('////////////////////////////////////////////////////////////////////////');
+//////////////////////
+
+
+
+
 // Инициализация ACL
 require('./config/acl');
 
