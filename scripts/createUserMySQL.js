@@ -8,8 +8,8 @@ var User = require('../app/models/user.mysql.server.model.js');
 var newUser = new User({surname: 'Аленин',
 							name: 'Егор',
 							lastname: 'Сергеевич',
-							email: 'sliva666@mail.ru',
-							login: 'Gosha1',
+							email: 'sliva6266@mail.ru',
+							login: 'Gosha',
 							password: '123456',
 							state: 1
 							});

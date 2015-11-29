@@ -18,6 +18,7 @@
         if(userObj === undefined){ userObj = {}; }    	
     	
     	// Публичные свойства
+        this.id = (userObj.id) ? userObj.id : ''; // Идентификатор пользователя
     	this.surname = userObj.surname;  // Фамилия пользователя
         this.name = userObj.name; // Имя пользователя
         this.lastname = userObj.lastname; // Отчество пользователя
@@ -56,12 +57,42 @@
             }
         });
     };    
+
+    // Проверить на уникальность email пользователя
+    User.prototype._checkUniqEmail = function(email, callback){
+        // Инициализвация переменных
+        var selectStatement = "SELECT * FROM users AS t1 WHERE t1.email = '"+email+"';";
+
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
+        if(connection){
+            connection.query(selectStatement, function(err, result){
+
+                console.log(result);
+                if(err) { callback(err); }
+
+                if(result.length > 0){
+                    connection.destroy();
+                    callback(null, false);                    
+                }else{
+                    connection.destroy();
+                    callback(null, true);
+                }
+            });
+        } 
+    };
     
     // Публичные методы
     // Создать нового пользователя
     User.prototype.save = function(callback){
         // Инициализация переменных
         var User = this;
+
+        User._checkUniqEmail(User.email, function(err, result){
+            if(err) throw err;
+
+            console.log('email = '+User.email);
+            console.log(result);
+        });
 
         User._checkUniqLogin(this.login, function(result){
             if(result){
@@ -170,6 +201,7 @@
         }], 
         function(err, results){
             if(err){ callback(err); }
+            //console.log(results);
             callback(null, results);
         });
     };

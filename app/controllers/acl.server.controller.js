@@ -2,12 +2,13 @@
     'use strict';
  
     // Подключаем зависимости 
-    var mongoose = require('mongoose');
-    var Acl = require('acl');
-    var async = require('async');
-    var acl = new Acl(new Acl.mongodbBackend(mongoose.connection.db, 'acl_'));
+    // var mongoose = require('mongoose');
+    // var Acl = require('acl');
+     var async = require('async');
+    // var acl = new Acl(new Acl.mongodbBackend(mongoose.connection.db, 'acl_'));
+    var acl = require('acl-mysql');
 
-    exports.checkPermission = function(resouce, action){
+    exports.checkPermission = function(resource, action){
         var middleware = false;
 
         return function(req, res, next){
@@ -15,18 +16,18 @@
                 middleware = true;
             }
 
-            var uid = req.user.userId;
-            var userLogin = req.user.userLogin;
+            var uid = req.user.id;
+            var login = req.user.login;
             
             async.waterfall([function(callback){
                 // Проверка прав доступа
-                console.log('Проверка прав доступа пользователя: ' + userLogin);
-                acl.isAllowed(uid, resouce, action, function(err, result){
+                console.log('Проверка прав доступа пользователя: ' + login);
+                acl.isAllowed(login, resource, action, function(err, result){
                     if(result){
-                        console.log('Доступ для пользователя ' + userLogin + ' разшен!');
+                        console.log('Доступ для пользователя ' + login + ' разшен!');
                         callback(null, true);
                     }else{
-                        console.log('Доступ для пользователя ' + userLogin + ' не разшен!');                    
+                        console.log('Доступ для пользователя ' + login + ' не разшен!');                    
                         callback({error: 'Нет права доступа к данному ресурсу!'});
                     }
                 });         
