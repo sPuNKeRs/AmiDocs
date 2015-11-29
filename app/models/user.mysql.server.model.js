@@ -116,6 +116,27 @@
             });
         }        
     };
+
+    // Получить список пользователей
+    User.getUsersList = function(callback){
+        // Инициализвация переменных
+        var selectStatement = "SELECT id, surname, name, lastname, email, login, state, created FROM amidocs.users;";
+
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
+        if(connection){
+            connection.query(selectStatement, function(err, result){
+                if(err) { throw err;}
+
+                if(result.length > 0){
+                    connection.destroy();
+                    callback(null, result);                    
+                }else{
+                    connection.destroy();
+                    callback('Список пользователей пуст.');
+                }
+            });
+        }
+    };
     
     // Авторизация пользователя
     User.authorize = function(login, password, callback){
