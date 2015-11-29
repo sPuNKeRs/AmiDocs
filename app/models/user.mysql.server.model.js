@@ -4,8 +4,7 @@
 	var crypto = require('crypto');
     var async = require('async');
     var contract = require('../lib/contract.js');
-    var connectionProvider = require('../../config/database/mysql/mysql-connection-sting-provider.js');
-    var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
+    var connectionProvider = require('../../config/database/mysql/mysql-connection-sting-provider.js');    
     var moment = require('moment');
 
     contract.debug = true;
@@ -26,7 +25,8 @@
         this.login = userObj.login; // Логин пользователя        
         this.hashedPassword = (userObj.hashedPassword) ? userObj.hashedPassword : ''; // Шифрованный пароль пользователя
         this.salt = (userObj.salt) ? userObj.salt : ''; // Соль для пароля
-        this.created = moment(new Date()).toDate(); // Дата создания
+        this.created = (userObj.created) ? userObj.created : moment(new Date()).toDate(); // Дата создания
+        this.updated = moment(new Date()).toDate(); // Дата обновления данных
         this.state = (userObj.state) ? userObj.state : '0'; // Состояние учетной записи   
 
         // Закрытые свойства
@@ -47,10 +47,8 @@
     
     // Проверить на уникальность Логин пользователя
     User.prototype._checkUniqLogin = function(login, callback){
-
-        var self = this;
-
-        self.getUserByLogin(login, function(result){
+      
+        User.getUserByLogin(login, function(result){
             if(result){
                 callback(false);
             }else{
@@ -65,42 +63,56 @@
         // Инициализация переменных
         var User = this;
 
-        // Проверяем переменные
-        if(this.surname && this.email && 
-           this.login && this.hashedPassword && this.salt){
-            
-            // Формируем запрос на создание пользователя
-            var insertStatement = "INSERT INTO `amidocs`.`users` SET?";            
+        User._checkUniqLogin(this.login, function(result){
+            if(result){
 
-            if(connection){
-                connection.query(insertStatement, User, function(err, result){
-                    if(err) { throw err;}
-                    callback({status: 'success'});
-                    //console.log(result);                    
-                });
+                //console.log(User);
+                // Проверяем переменные
+                if(User.surname && User.email && 
+                   User.login && User.hashedPassword && User.salt){
+                    
+                    // Формируем запрос на создание пользователя
+                    var insertStatement = "INSERT INTO `amidocs`.`users` SET?";            
+                    
+                    var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
+                    if(connection){
+                        connection.query(insertStatement, User, function(err, result){
+                            if(err) { throw err;}
+                            //callback(null, {status: 'success'});  
+                            callback(null, User);
+
+                            connection.destroy();
+                        });
+                    }
+                    
+                }else{            
+                    callback({msg: "Не все данные заполнены."});
+                }
+            }else{
+                callback({msg: "Пользователь с таким логином уже существует."});
             }
-            callback(User);
-        }else{
-            console.log('Ошибка: не все данные заполнены.');
-            callback(false);
-        }
+
+        });
+        
     }; 
 
     // Получить пользователя по Логину
     User.getUserByLogin = function(login, callback){
         // Инициализвация переменных
-        //var self = this;
         var selectStatement = "SELECT * FROM amidocs.users AS t1 WHERE t1.login = '"+login+"';";
-        
+
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
         if(connection){
             connection.query(selectStatement, function(err, result){
                 if(err) { throw err;}
 
                 if(result.length > 0){
-                    callback(result);    
+                    connection.destroy();
+                    callback(result);                    
                 }else{
+                    connection.destroy();
                     callback(false);
-                }                
+                }
             });
         }        
     };
@@ -116,30 +128,31 @@
                 if(user){
                     callback(null, user[0]);    
                 }else{
-                    callback({error: 'Пользователь не существует!'});
+                    callback({msg: 'Пользователь не существует!'});
                 }
                 
             }); 
         },
         function(user, callback){
             if(user){
-                user = new User(user);
-                
-                console.log(user);
-               
+                user = new User(user);                            
                    
+                   if(user.hashedPassword === user._encryptPassword(password)){                       
+                       delete user.hashedPassword;
+                       delete user.salt;
+                       
+                       callback(null, user);
+                   }else{
+                       callback({msg: 'Не верный логин или пароль!'});
+                   }
             }            
         }], 
         function(err, results){
-            if(err){
-                console.log(err);
-            }
+            if(err){ callback(err); }
+            callback(null, results);
         });
     };
-    
-    //////////////////////////
 
-    User.authorize("PuNKeR", "123", function(result){
-        
-    });
+
+    module.exports = User;    
 })();
