@@ -43,7 +43,8 @@
                     userLogin: credentials.userLogin,
                     userPassword: credentials.userPassword
                 }).success(function(user){
-                    $log.info('Успешно вошли ' + user);
+                    $log.info('Успешно вошли!');
+                    $log.info(user);
                     
                     $state.go('home');
                 }).error(function(err){

@@ -6,6 +6,7 @@
      */
     var passport = require('../../config/passport.js')();
     var auth = require('../middleware/auth.js');
+    var _ = require('lodash');
     //var aclCtrl = require('./acl.server.controller');
 
     // Подключаем зависимости

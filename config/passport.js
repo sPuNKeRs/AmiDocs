@@ -22,8 +22,7 @@
           function(login, password, done) {
                 
             User.authorize(login, password, function(err, user){
-              //console.log(user);
-              //console.log(arguments);
+                            
               if(err){
                 console.log('Ошибка авторизации: ');                
                 console.log(err);
@@ -31,20 +30,23 @@
                 return done(null, false, { message: 'Неверный логин или пароль.' });
               }else{
                 if(user){
-                  //user.salt = undefined;
-                  //user.hashedPassword = undefined;
-                
-                  var loggedUser = {
-                    id: user.id,
-                    surname: user.surname,
-                    name: user.name,
-                    lastname: user.lastname,
-                    email: user.email,
-                    login: user.login,                  
-                    state: user.state
-                  };
-                
-                return done(null, loggedUser);
+                  
+                  User.getUserGroups(user.login, function(err, groupsList){
+                      var loggedUser = {
+                            id: user.id,
+                            surname: user.surname,
+                            name: user.name,
+                            lastname: user.lastname,
+                            email: user.email,
+                            login: user.login,                  
+                            state: user.state,
+                            created: user.created,
+                            groups: groupsList
+                          };
+                        
+                        return done(null, loggedUser);
+                  });           
+                  
                 }
                 
               }    

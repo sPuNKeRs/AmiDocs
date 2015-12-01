@@ -11,9 +11,11 @@
     function ProfileController($scope, UsersService){
         // Нажатие на кнопку СОХРАНИТЬ
         $scope.submit = function(){
-            var userList = UsersService.get({}, function(){
-                console.log(userList);
-            });             
+            // var userList = UsersService.get({}, function(){
+            //     console.log(userList);
+            // });   
+
+            console.log($scope.loggedUser);
         };
     }
 })(this.angular);

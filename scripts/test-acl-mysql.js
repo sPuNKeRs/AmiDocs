@@ -5,7 +5,7 @@
 	var Acl = require('acl-mysql');
 
 	//Добавить в группу администраторов
-	// Acl.addUserGroup(3, 1, function(result){
+	// Acl.addUserGroup(3, 3, function(result){
 	// 	console.log(result);
 	// });
 

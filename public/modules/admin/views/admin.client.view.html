@@ -1,11 +1,12 @@
 <div amidocs-menu menu-title="AmiDocs"></div>
 <div ng-controller="AdminController">
 	<tabset justified="true">
-	    <tab heading="Общие настройки">
-			Общие настройки приложения</tab>
-	    <tab heading="Пользователи">
+	 	<tab heading="Пользователи">
 	    	<div ng-include="'modules/admin/views/users/users-settings.client.view.html'"></div>
 	    </tab>
+	    <tab heading="Настройки">
+			Общие настройки приложения</tab>
+	   
 	    <tab heading="Дополнительно">Дополнительные настройки</tab>
   </tabset>	
 </div>

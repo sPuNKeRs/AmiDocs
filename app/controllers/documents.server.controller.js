@@ -58,7 +58,7 @@
     function createDocument (req, res, next){
         console.log('Создаем новый документ!');
         var newDocument = req.body;
-        newDocument.creator_id = req.user.userId;
+        newDocument.creator_id = req.user.id;
 
         console.log(newDocument);
 

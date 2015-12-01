@@ -4,7 +4,7 @@
 
 		return $resource('/user/:id', {}, {
 					list: {method: 'GET', isArray: true},
-					get: {method: 'GET'},
+					get: {method: 'GET', isArray: true},
 					create: {method: 'PUT'},
 					edit: {method: 'POST'},
 					delete: {method: 'DELETE'},

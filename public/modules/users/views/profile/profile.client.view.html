@@ -10,17 +10,22 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label for="userId">User ID</label>
-        <input type="text" class="form-control" id="userId" disabled="true" ng-model="loggedUser.userId">  
+        <label for="id">User ID</label>
+        <input type="text" class="form-control" id="id" disabled="true" ng-model="loggedUser.id">  
      </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="login">Логин</label>
-        <input type="text" class="form-control" id="login" ng-model="loggedUser.userLogin" disabled="true">  
+        <input type="text" class="form-control" id="login" ng-model="loggedUser.login" disabled="true">  
       </div>
     </div>  
-    <div class="col-md-4"></div>
+    <div class="col-md-4">      
+       <div class="form-group">
+        <label for="created">Дата создания</label>
+        <input type="text" class="form-control" id="created" ng-model="loggedUser.created" disabled="true">  
+       </div>      
+    </div>
   </div>
   <div class="row">
     <div class="col-md-4">
@@ -45,50 +50,50 @@
     
   </div>
 </div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Контактная информация</h3>
-  </div>
-  <div class="panel-body">
-    <div class="form-group">
-      <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Введите email" ng-model="loggedUser.email">
-      </div>     
-    </div>
-</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Роли и группы</h3>
-  </div>
-  <div class="panel-body">
-    
-    <div class="row">
-      <div class="col-md-6">
-         <div class="form-group">
-          <label for="roles">Роли</label>
-          <input type="text" class="form-control" id="roles" ng-model="loggedUser.roles" disabled="true">  
-         </div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Контактная информация</h3>
       </div>
-      <div class="col-md-6">
+      <div class="panel-body">
         <div class="form-group">
-          <label for="groups">Группы</label>
-          <input type="text" class="form-control" id="groups" ng-model="loggedUser.groups">
-         </div>      
+          <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Введите email" ng-model="loggedUser.email">
+          </div>     
       </div>
-    </div>
-    <div class="row">
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="status">Статус</label>
-        <input type="text" class="form-control" id="status" ng-model="loggedUser.state">
-      </div>
-    </div>      
     </div>
   </div>
-</div>
- 
- <button type="submit" class="btn btn-primary">Сохранить</button>
- <p>{{testVar}}</p>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Роли и группы</h3>
+      </div>
+      <div class="panel-body">
+        
+        <div class="row">
+          
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="groups">Группы</label>
+                 
+                <ul>
+                  <li ng-repeat="group in loggedUser.groups"><a href="/#!/groups/{{group.id_group}}">{{group.group_name}}</a></li>
+                </ul>            
+             </div>      
+          </div>
+          <div class="col-md-6">
+          <div class="form-group">
+            <label for="status">Статус</label>
+            <input type="text" class="form-control" id="status" ng-model="loggedUser.state">
+          </div>
+        </div>
+        </div>       
+      </div>
+    </div>
+  </div>
+</div> 
+ <button type="submit" class="btn btn-primary">Сохранить</button> 
 </form>
 </div>

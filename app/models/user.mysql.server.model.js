@@ -6,6 +6,7 @@
     var contract = require('../lib/contract.js');
     var connectionProvider = require('../../config/database/mysql/mysql-connection-sting-provider.js');    
     var moment = require('moment');
+    var acl = require('acl-mysql');
 
     contract.debug = true;
 
@@ -168,6 +169,20 @@
             });
         }
     };
+
+    // Получить список групп в которые входит пользователь
+    User.getUserGroups = function(login, callback){
+        acl.userGroups(login, function(err, result){
+            if(err) throw err;
+
+            if(result){
+                console.log('debug');
+                console.log(result);
+
+                callback(null, result);
+            }
+        });
+    };
     
     // Авторизация пользователя
     User.authorize = function(login, password, callback){
@@ -180,7 +195,7 @@
                 if(user){
                     callback(null, user[0]);    
                 }else{
-                    callback({msg: 'Пользователь не существует!'});
+                    callback('Пользователь не существует!');
                 }
                 
             }); 
@@ -195,7 +210,7 @@
                        
                        callback(null, user);
                    }else{
-                       callback({msg: 'Не верный логин или пароль!'});
+                       callback('Не верный логин или пароль!');
                    }
             }            
         }], 
