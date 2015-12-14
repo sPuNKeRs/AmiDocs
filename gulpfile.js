@@ -2,7 +2,8 @@ var gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     server =require('gulp-develop-server'),
     bs = require('browser-sync'),
-    livereload = require('gulp-livereload');
+    livereload = require('gulp-livereload'),
+    nodeInspector = require('gulp-node-inspector');
     
 
 // Настройка
@@ -73,8 +74,10 @@ gulp.task('watch', function(){
 });
 
 
+
 // По умолчанию
 gulp.task('default', ['watch' , 'server:start'], function(){
-     
+
+
     
 });

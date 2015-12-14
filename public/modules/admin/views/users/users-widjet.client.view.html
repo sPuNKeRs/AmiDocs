@@ -39,8 +39,8 @@
 			        <tr ng-repeat="user in UserSettingCtrl.usersList" 
 			            data-selected-user="UserSettingCtrl.selectedUser"
 			            data-edit-user="UserSettingCtrl.editUser"
-			            data-userId="{{user._id}}" 
-			           	ng-class="{'success': UserSettingCtrl.userChecked(user._id)}"
+			            data-userId="{{user.id}}"
+			           	ng-class="{'success': UserSettingCtrl.userChecked(user.id)}"
 			           	check-user>
 				          <td>{{$index+1}}</td>
 				          <td>{{user.surname+' '+user.name+' '+user.lastname}}</td>

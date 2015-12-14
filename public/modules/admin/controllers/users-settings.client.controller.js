@@ -42,9 +42,11 @@
 
         // Функция проверки выделения пользователя
         function userChecked(userID){
-            if(userID === vm.selectedUser){
+            if(userID == vm.selectedUser){
+                console.log('true');
                 return true;
             }else{
+                console.log('false');
                 return false;
             }
         }

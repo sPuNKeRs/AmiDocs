@@ -24,9 +24,6 @@ mongoose.connection.on('error', function(err){
 });
 mongoose.connection.on('disconnected', connect);
 
-// Инициализация ACL
-//require('./config/acl');
-
 // Инициализация EXPRESS
 var app = require('./config/express')();
 
@@ -34,6 +31,7 @@ var app = require('./config/express')();
 app.listen(config.port);
 
 // Expose app
+var exports;
 exports = module.exports = app;
 
 // Logging initialization

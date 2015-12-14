@@ -34,6 +34,9 @@
         // Функция сохранения изменений в документ
         function applyChanges(){
             $log.info('Сохранить изменения в документе!');
+            vm.document.receipt_date = String(vm.document.receipt_date);
+            $log.info(vm.document.receipt_date);
+
             DocumentsService.edit(vm.document)
                 .$promise.then(function success(result){
                     $log.info('Изменения успешно сохранены!');

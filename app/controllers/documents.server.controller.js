@@ -35,6 +35,10 @@
         console.log('Сохраняем изменения в документ - ' + req.body.id);
         var changedDocument = req.body;
         var documentID = changedDocument.id;
+        changedDocument.receipt_date = new Date(changedDocument.receipt_date);
+        console.log('--------!!!--------');
+        console.log(changedDocument);
+        console.log('--------!!!--------');
 
         Document.updateDocumentById(documentID, changedDocument, function(result){
             console.log('Успешное сохранение изменений!');

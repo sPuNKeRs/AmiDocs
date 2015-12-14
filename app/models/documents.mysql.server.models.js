@@ -67,6 +67,10 @@ var DocumentsModel = {
     },
     // Изменить документ по ID
     updateDocumentById: function(documentID, changedDocument, callback){
+        console.log('-----------------');
+        console.log(changedDocument);
+        console.log('-----------------');
+
         var updateStatement = "UPDATE `amidocs`.`documents` SET? WHERE id=" + documentID + ";";
 
         var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();

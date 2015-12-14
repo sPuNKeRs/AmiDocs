@@ -14,7 +14,7 @@
     var mongoose = require('mongoose');
     
 
-    var User = require('../../app/models/user.server.model').User;  // Модель User
+    //var User = require('../../app/models/user.server.model').User;  // Модель User
     var Acl = require('acl');
     var acl = new Acl(new Acl.mongodbBackend(mongoose.connection.db, 'acl_'));
 
