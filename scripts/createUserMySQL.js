@@ -5,19 +5,22 @@
 var User = require('../app/models/user.mysql.server.model.js');
 
 
-var newUser = new User({surname: 'Аленин',
-							name: 'Егор',
-							lastname: 'Сергеевич',
-							email: 'sliva6266@mail.ru',
-							login: 'Gosha',
+var newUser = new User({surname: 'Корытина',
+							name: 'Дарья',
+							lastname: 'Олеговна',
+							email: 'daria2@mail.ru',
+							login: 'Dasha2',
 							password: '123456',
 							state: 1
 							});
+
+
 
 newUser.save(function(err, result){
 	
 	if(err) { throw new Error(err.msg)};
 
-	console.log(result);
-		
+	if(result){
+		console.log(result);	
+	}		
 });

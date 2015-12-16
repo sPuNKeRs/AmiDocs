@@ -11,37 +11,10 @@
 
     // Подключаем зависимости
     var async = require('async');
-    var mongoose = require('mongoose');
-    
+    //var mongoose = require('mongoose');   
 
-    //var User = require('../../app/models/user.server.model').User;  // Модель User
-    var Acl = require('acl');
-    var acl = new Acl(new Acl.mongodbBackend(mongoose.connection.db, 'acl_'));
-
-    var aclMysql = require('acl-mysql');
-    var UserMysql = require('../models/user.mysql.server.model.js');
-
-
-    // UserMysql.getUsersList(function(err, result){
-    //     if(err){
-    //         console.log(err);
-    //     }else{
-    //         console.log(result);
-    //         console.log('---------');
-    //     }
-    // });
-
-    // User.getUsersList(function(err, users){
-    //         if(err){
-    //             console.error(err);
-    //             //res.status(500).send('Ошибка на сервере');
-    //         }else{
-    //             console.log(users);
-    //             console.log('---------');
-    //             //res.status(200).json(users);
-    //         }
-    //     }); 
-
+    var ACL = require('acl-mysql');
+    var User = require('../models/user.mysql.server.model.js');
 
 
     // Авторизация пользователя
@@ -67,7 +40,7 @@
         if(req.isAuthenticated()){
             user.access = false;
             //console.log(user);
-            aclMysql.allowedPermissions(user.login, resource, function(err, permissions){
+            ACL.allowedPermissions(user.login, resource, function(err, permissions){
                 if(err) throw err;
                 
                 if(permissions.indexOf('get') > 0){
@@ -77,75 +50,15 @@
                     res.status(200).send(user);
                     console.log('Нет прав доступа к этому ресурсу!');
                 }
-            });
-
-            // acl.allowedPermissions(user.userId, resource, function(err, result){
-            //     if(err) throw err;
-
-            //     if(result){
-                
-            //         if(result[resource].length > 0){
-            //             console.log(result);    
-            //             user.access = true;
-                        
-            //             res.status(200).send(user);
-            //         }else{                  
-            //             res.status(200).send(user);
-            //             console.log('Нет прав доступа к этому ресурсу!');
-            //         }           
-            //     }
-            // });
+            });           
         }else{
             res.status(200).send('0');
         }   
     };
 
-    // // Проверка состояния авторизации пользователя
-    // exports.loggedin = function(req, res){
-
-    //     // Добавить проверку доступности ресурса
-    //         var user = req.user;
-    //         var resource = req.body.resource.toLowerCase();
-        
-    //     if(req.isAuthenticated()){
-    //         user.access = false;
-    //         acl.allowedPermissions(user.userId, resource, function(err, result){
-    //             if(err) throw err;
-
-    //             if(result){
-                
-    //                 if(result[resource].length > 0){
-    //                     console.log(result);    
-    //                     user.access = true;
-                        
-    //                     res.status(200).send(user);
-    //                 }else{                  
-    //                     res.status(200).send(user);
-    //                     console.log('Нет прав доступа к этому ресурсу!');
-    //                 }           
-    //             }
-    //         });
-    //     }else{
-    //         res.status(200).send('0');
-    //     }   
-    // };
-
-    // // Получить список всех пользователей
-    //  exports.usersList = function(req, res){
-    //     User.getUsersList(function(err, users){
-    //         if(err){
-    //             console.error(err);
-    //             res.status(500).send('Ошибка на сервере');
-    //         }else{
-    //             console.log(users);
-    //             res.status(200).json(users);
-    //         }
-    //     });     
-    //  };
-
-      // // Получить список всех пользователей
+     // Получить список всех пользователей
      exports.usersList = function(req, res){
-        UserMysql.getUsersList(function(err, users){
+        User.getUsersList(function(err, users){
             if(err){
                 console.error(err);
                 res.status(500).send('Ошибка на сервере');
@@ -174,17 +87,18 @@
      exports.editUser = function(req, res){
         var editedUser = req.body;
         if(editedUser){
-            var userId = editedUser._id;
-            console.log(userId);
+            var userID = editedUser.id;
+            console.log(userID);
+            console.log(editedUser);
 
-            User.editUser(userId, editedUser, function(err, user){
+            User.edit(userID, editedUser, function(err, result){
                 if(err){
                     console.log(err);
                     res.status(500).send('Ошибка на сервере!');
                 }else{
                     console.log('Изменения успешно сохранены!');
-                    console.log(user);
-                    res.status(200).json(user);
+                    console.log(result);
+                    res.status(200).json(result);
                 }
             });
         }

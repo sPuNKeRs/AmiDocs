@@ -13,14 +13,17 @@
     // Класс для работы с пользователями
 
     // Конструктор
-    function User(userObj){     
-
-        // Инициализация пользователя
-        if(userObj === undefined){ userObj = {}; }    	
-    	
-    	// Публичные свойства
+    function User(userObj){  
+        // Проверяем кол-во переданных параметров
+        if(arguments.length > 1 || (typeof userObj != "object")){
+            throw Error('Конструктору переданы не верные параметры');
+        } 
+        
+        if(userObj === undefined){ userObj = {}; }      
+        
+        // Публичные свойства
         this.id = (userObj.id) ? userObj.id : ''; // Идентификатор пользователя
-    	this.surname = userObj.surname;  // Фамилия пользователя
+        this.surname = userObj.surname;  // Фамилия пользователя
         this.name = userObj.name; // Имя пользователя
         this.lastname = userObj.lastname; // Отчество пользователя
         this.email = userObj.email; // Электронный адрес пользователя
@@ -36,7 +39,7 @@
             var password = userObj.password;
             this.salt = Math.random() + ''; 
             this.hashedPassword = this._encryptPassword(password);
-        }             
+        }              
     }
 
     //Методы класса
@@ -50,7 +53,9 @@
     // Проверить на уникальность Логин пользователя
     User.prototype._checkUniqLogin = function(login, callback){
       
-        User.getUserByLogin(login, function(result){
+        User.getUserByLogin(login, function(err, result){
+            if(err) callback(err);
+
             if(result){
                 callback(false);
             }else{
@@ -68,7 +73,7 @@
         if(connection){
             connection.query(selectStatement, function(err, result){
 
-                console.log(result);
+               // console.log(result);
                 if(err) { callback(err); }
 
                 if(result.length > 0){
@@ -91,47 +96,78 @@
         User._checkUniqEmail(User.email, function(err, result){
             if(err) throw err;
 
-            console.log('email = '+User.email);
-            console.log(result);
-        });
-
-        User._checkUniqLogin(this.login, function(result){
             if(result){
+                User._checkUniqLogin(User.login, function(result){
+                    if(result){
 
-                //console.log(User);
-                // Проверяем переменные
-                if(User.surname && User.email && 
-                   User.login && User.hashedPassword && User.salt){
-                    
-                    // Формируем запрос на создание пользователя
-                    var insertStatement = "INSERT INTO `amidocs`.`users` SET?";            
-                    
-                    var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
-                    if(connection){
-                        connection.query(insertStatement, User, function(err, result){
-                            if(err) { throw err;}
-                            //callback(null, {status: 'success'});  
-                            callback(null, User);
+                        //console.log(User);
+                        // Проверяем переменные
+                        if(User.surname && User.email && 
+                           User.login && User.hashedPassword && User.salt){
+                            
+                            // Формируем запрос на создание пользователя
+                            var insertStatement = "INSERT INTO `amidocs`.`users` SET?";            
+                            
+                            var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
+                            if(connection){
+                                connection.query(insertStatement, User, function(err, result){
+                                    if(err) { throw err;}
+                                    //callback(null, {status: 'success'});  
+                                    callback(null, User);
 
-                            connection.destroy();
-                        });
+                                    connection.destroy();
+                                });
+                            }
+                            
+                        }else{            
+                            callback({msg: "Не все данные заполнены."});
+                        }
+                    }else{
+                        callback({msg: "Пользователь с таким логином уже существует."});
                     }
-                    
-                }else{            
-                    callback({msg: "Не все данные заполнены."});
-                }
-            }else{
-                callback({msg: "Пользователь с таким логином уже существует."});
-            }
 
+                });
+            }else{
+                callback({msg: "Пользователь с таким email уже существует."});
+            }
         });
+
         
-    }; 
+        
+    };
+
+    // Редактирование пользователя
+    User.edit = function(id, editedUser, callback){
+
+        
+        // Инициализация переменных
+        var self = this;
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
+        var updateStatement = "UPDATE users SET ? WHERE id = ?";
+        // Удаляем не нужные свойства
+        delete editedUser.id;
+        delete editedUser.created;
+
+        // Обновляем свойства
+        editedUser.updated = moment(new Date()).toDate(); // Дата обновления данных
+
+        console.log(editedUser);
+
+        if(connection){
+            connection.query(updateStatement, [editedUser, id], function(err, result){
+                if(err) throw err;
+
+                if(result){
+                    callback(null, result);
+                }
+            });
+        }        
+    };
 
     // Получить пользователя по Логину
     User.getUserByLogin = function(login, callback){
         // Инициализвация переменных
-        var selectStatement = "SELECT * FROM amidocs.users AS t1 WHERE t1.login = '"+login+"';";
+        var selectStatement = "SELECT * FROM amidocs.users AS t1 WHERE t1.login = '"+login+"' LIMIT 1;";
 
         var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
         if(connection){
@@ -140,7 +176,7 @@
 
                 if(result.length > 0){
                     connection.destroy();
-                    callback(result);                    
+                    callback(null, true);                    
                 }else{
                     connection.destroy();
                     callback(false);
@@ -148,6 +184,29 @@
             });
         }        
     };
+
+    //Получить пользователя по id
+    User.getUserById = function(id, callback){
+        // Инициализвация переменных
+        var selectStatement = "SELECT id, surname, name, lastname, email, login, state, created FROM amidocs.users AS t1 WHERE t1.id = '"+id+"' LIMIT 1;";
+
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();        
+        if(connection){
+            connection.query(selectStatement, function(err, result){
+                if(err) { throw err;}
+
+                if(result.length > 0){
+                    connection.destroy();
+                    callback(null, result[0]);                    
+                }else{
+                    connection.destroy();
+                    callback(null, false);
+                }
+            });
+        } 
+    };
+
+
 
     // Получить список пользователей
     User.getUsersList = function(callback){
@@ -176,8 +235,8 @@
             if(err) throw err;
 
             if(result){
-                console.log('debug');
-                console.log(result);
+                // console.log('debug');
+                // console.log(result);
 
                 callback(null, result);
             }
@@ -190,8 +249,9 @@
         // Инициализация переменных                
         async.waterfall([function(callback){
             // Получаем пользователя по логину
-            User.getUserByLogin(login, function(user){
-                
+            User.getUserByLogin(login, function(err, user){
+                if(err) callback(err);
+
                 if(user){
                     callback(null, user[0]);    
                 }else{
@@ -220,7 +280,6 @@
             callback(null, results);
         });
     };
-
 
     module.exports = User;    
 })();

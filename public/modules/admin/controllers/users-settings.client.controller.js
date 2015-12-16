@@ -42,11 +42,9 @@
 
         // Функция проверки выделения пользователя
         function userChecked(userID){
-            if(userID == vm.selectedUser){
-                console.log('true');
+            if(userID == vm.selectedUser){                
                 return true;
             }else{
-                console.log('false');
                 return false;
             }
         }
@@ -59,6 +57,7 @@
         // Функиця создание модального окна
         // для создания нового пользователя
         function createNewUser(size){
+            console.log('create User function');
             var modalInstance = $modal.open({
                     scope: $scope,
                     keyboard: false,

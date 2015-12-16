@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Изменить информацию о пользователе {{EditUserCtrl.user.userLogin}}</h3>
+    <h3 class="modal-title">Изменить информацию о пользователе {{EditUserCtrl.user.login}}</h3>
 </div>
 <div class="modal-body">
     <form role="form" name="userInfoForm">
@@ -16,7 +16,7 @@
                        class="form-control" 
                        id="userId" 
                        disabled="true" 
-                       ng-model="EditUserCtrl.user._id">  
+                       ng-model="EditUserCtrl.user.id">  
              </div>
             </div>
             <div class="col-md-4">
@@ -25,7 +25,7 @@
                 <input type="text" 
                        class="form-control" 
                        id="login" 
-                       ng-model="EditUserCtrl.user.userLogin" 
+                       ng-model="EditUserCtrl.user.login" 
                        disabled="true">  
               </div>
             </div>  
