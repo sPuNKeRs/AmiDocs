@@ -107,43 +107,43 @@
     // Cоздание нового пользователя
     exports.createUser = function(req, res){
         // Инициализация переменных
-        var newUser = req.body;
-        var errorMsg = '';  
+        var newUserData = req.body;
+        var newUser;
+        var errorMsg = '';
 
-        async.parallel([function(callback){
-            User.checkUniqLogin(newUser.login, callback);
-        }, function(callback){
-            User.checkUniqEmail(newUser.email, callback);
-        }       
-        ], 
-        function(err, results){
-            console.log(arguments);
-            if(err) throw err;
+        if(newUserData){
+            // Инициализируем нового пользователя
+            newUser = new User({surname: newUserData.surname,
+                            name: newUserData.name,
+                            lastname: (newUserData.lastname) ? newUserData.lastname : '',
+                            email: newUserData.email,
+                            login: newUserData.login,
+                            password: newUserData.password,
+                            state: newUserData.state
+                            });
 
-            if(results[0] && results[1]){
-                console.log('Создаем пользователя!');
-                var user = new User({
-                    surname: newUser.surname,
-                    name: newUser.name,
-                    lastname: newUser.lastname,
-                    email: newUser.email,
-                    userLogin: newUser.login,
-                    password: newUser.password
-                });
 
-                user.save(function(err, result){
-                    if(err) throw err;
-                    console.log("Пользоваетль успешно создан!");
-                    console.log(result);
-                    res.status(200).json({newUser: result});
-                });
+            // Сохраняем нового пользователя
+            newUser.save(function(err, user){
+                console.log('Создаем польздователя ' + newUserData.login);
+                
+                if(err) { 
+                    console.log('Ошибка при создании пользователя!');
+                    console.log(err);
+                    
+                    res.status(200).json({errorMsg: new Error(err.msg)});
+                    //throw new Error(err.msg)
+                }
 
-            }else{
-                if(!results[0]){errorMsg = errorMsg + ' Логин уже используется.';}
-                if(!results[1]){errorMsg = errorMsg + ' Email уже используется.';}       
-                res.status(200).json({errorMsg: errorMsg}); 
-            }           
-        });
+                if(user){
+                    console.log('Пользователь успешно создан!');
+                    console.log(user);  
+
+                    res.status(200).json({newUser: user});
+                }       
+            });
+
+        }        
     };
 
     // Удаление пользователя по ID
@@ -156,19 +156,14 @@
             User.deleteUserById(userId, function(err, result){
                 if(err) throw err;
 
-                //console.log(result);
-                if(result.result.ok){
-                    if(result.result.n !== 0){
-                        console.log('Пользователь удален!');
-                        res.status(200).json({deleteResult: true});
-                    }else{
-                        console.log('Пользователя не существует!');
-                        res.status(200).json({deleteResult: false});
-                    }
+                console.log(result.affectedRows);
+                if(result.affectedRows > 0){
+                    console.log('Пользователь удален!');
+                    res.status(200).json({deleteResult: true});
                 }else{
                     console.log('Ошибка при удалении.');
                     res.status(200).json({deleteResult: false});
-                }           
+                }                       
             });
         }   
     };

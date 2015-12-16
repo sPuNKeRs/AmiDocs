@@ -85,10 +85,12 @@
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Контактная информация</h3>
+            <h3 class="panel-title">Информация</h3>
           </div>
           <div class="panel-body">
-            <div class="form-group">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
               <label for="email">Email</label>
                 <input type="email" 
                        class="form-control" 
@@ -96,7 +98,24 @@
                        placeholder="Введите email" 
                        ng-model="CreateUserCtrl.user.email" 
                        required>
-              </div>     
+              </div>  
+
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="status">Статус</label>
+                  <select class="form-control"
+                          ng-model="CreateUserCtrl.user.state"
+                          ng-init="CreateUserCtrl.user.state=1"
+                          convert-to-number
+                          required>
+                              <option value="0">Не включен</option>
+                              <option value="1">Включен</option> 
+                  </select>                 
+                </div>
+
+              </div>
+            </div>
             </div>
         </div>  
     </form>        

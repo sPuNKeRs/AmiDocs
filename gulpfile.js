@@ -24,6 +24,12 @@ var serverJsFiles = [
     './config/**/*.js'
 ];
 
+var clientJsFiles = [
+    './public/*.js', 
+    './public/modules/**/*.js'
+];
+
+
 var clientFiles = [
     './public/*.js', 
     './public/modules/**/*.js',

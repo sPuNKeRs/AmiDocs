@@ -206,6 +206,25 @@
         } 
     };
 
+    // Удалить пользователя по ID
+    User.deleteUserById = function(id, callback){
+        // Инициализация переменных
+        var self = this;
+        var connection = connectionProvider.mysqlConnectionProvider.getMysqlConnection();
+        var deleteStatement = "DELETE FROM `amidocs`.`users` WHERE `id`=" + id + " LIMIT 1;";
+
+        if(connection){
+            connection.query(deleteStatement, function(err, result){
+                if(err) callback(err);
+
+                if(result){
+                    callback(null, result);
+                }
+            });
+        }
+
+    };
+
 
 
     // Получить список пользователей
