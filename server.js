@@ -41,4 +41,5 @@ console.log(chalk.green('Среда:' + process.env.NODE_ENV));
 console.log(chalk.green('Порт:' + config.port));
 console.log(chalk.green('База данных:' + config.db.uri));
 console.log(chalk.yellow('URL: http://10.0.0.66:' + config.port));
+console.log('git!!!');
 console.log(chalk.red('-----------'));
