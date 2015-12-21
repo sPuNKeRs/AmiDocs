@@ -20,6 +20,8 @@
           passwordField: 'userPassword'
         },
           function(login, password, done) {
+
+            //console.log('----debug---- 1');
                 
             User.authorize(login, password, function(err, user){
                             
@@ -30,8 +32,12 @@
                 return done(null, false, { message: 'Неверный логин или пароль.' });
               }else{
                 if(user){
-                  
+                  //console.log('----debug---- 2');
+                  //console.log(user);
                   User.getUserGroups(user.login, function(err, groupsList){
+                      //console.log('----debug---- 3');
+                      //console.log(groupsList);
+
                       var loggedUser = {
                             id: user.id,
                             surname: user.surname,
@@ -43,6 +49,8 @@
                             created: user.created,
                             groups: groupsList
                           };
+
+                          //console.log(loggedUser);
                         
                         return done(null, loggedUser);
                   });           

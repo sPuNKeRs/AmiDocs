@@ -71,15 +71,34 @@
             <h3 class="panel-title">Контактная информация</h3>
           </div>
           <div class="panel-body">
-            <div class="form-group">
-              <label for="email">Email</label>
-                <input  type="email" 
+            
+
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                    <input  type="email" 
                         class="form-control" 
                         id="email" 
                         placeholder="Введите email" 
                         ng-model="EditUserCtrl.user.email">
-              </div>     
+                </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                  <label for="status">Статус</label>
+                  <select class="form-control"
+                          ng-model="EditUserCtrl.user.state"                          
+                          convert-to-number
+                          required>
+                              <option value="0">Не включен</option>
+                              <option value="1">Включен</option> 
+                  </select>                 
+                </div>
+              </div>
             </div>
+          </div>
         </div>  
     </form>        
 </div>

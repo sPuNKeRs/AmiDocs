@@ -45,6 +45,7 @@
                 }).success(function(user){
                     $log.info('Успешно вошли!');
                     $log.info(user);
+                    //$rootScope.loggedUser = user;
                     
                     $state.go('home');
                 }).error(function(err){

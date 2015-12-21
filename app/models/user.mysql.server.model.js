@@ -136,6 +136,39 @@
         
     };
 
+    // Проверка состояния пользователя
+    User.checkUserState = function(userData, callback){
+        // Инициализация переменных
+        var self = this;
+
+        switch(typeof userData){
+            case 'number':
+                console.log('Поиск по ID');
+                self.getUserById(userData, function(err, user){
+                    if(err) callback(err);
+
+                    if(user){
+                        //console.log(result);
+                        callback(null, user.state);    
+                    }
+                    
+                });
+                
+                
+            break;
+
+            case 'string':
+                console.log('Поиск по Логину');
+                callback(null, 'Поиск по Логину');
+            break;
+
+            default:
+                console.log('Параметры заданы неверно!');
+                callback('Параметры заданы неверно!');
+            break;
+        }
+    };
+
     // Редактирование пользователя
     User.edit = function(id, editedUser, callback){
 
@@ -176,7 +209,7 @@
 
                 if(result.length > 0){
                     connection.destroy();
-                    callback(null, true);                    
+                    callback(null, result);                    
                 }else{
                     connection.destroy();
                     callback(false);
@@ -251,7 +284,7 @@
     // Получить список групп в которые входит пользователь
     User.getUserGroups = function(login, callback){
         acl.userGroups(login, function(err, result){
-            if(err) throw err;
+            if(err) callback(err);
 
             if(result){
                 // console.log('debug');
@@ -272,6 +305,8 @@
                 if(err) callback(err);
 
                 if(user){
+                    //console.log('getUserByLogin result: ');
+                    //console.log(user);
                     callback(null, user[0]);    
                 }else{
                     callback('Пользователь не существует!');
@@ -281,6 +316,8 @@
         },
         function(user, callback){
             if(user){
+                //console.log('-- 2 step :');
+                //console.log(user);
                 user = new User(user);                            
                    
                    if(user.hashedPassword === user._encryptPassword(password)){                       

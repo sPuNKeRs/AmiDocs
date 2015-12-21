@@ -34,8 +34,10 @@
     exports.loggedin = function(req, res){
 
         // Добавить проверку доступности ресурса
-            var user = req.user;
-            var resource = req.body.resource.toLowerCase();
+        var user = req.user;
+        var resource = req.body.resource.toLowerCase();
+
+     
         
         if(req.isAuthenticated()){
             user.access = false;
@@ -44,8 +46,18 @@
                 if(err) throw err;
                 
                 if(permissions.indexOf('get') > 0){
-                    user.access = true;
-                    res.status(200).send(user);
+                    // Получаем состоятние пользователя
+                    User.checkUserState(user.id, function(err, state){
+                        if(err) throw err;
+
+                        if(state){
+                            user.access = true;
+                            res.status(200).send(user);
+                        }else{
+                            console.log('Пользователь отключен!');
+                            res.status(200).send(user);                            
+                        }
+                    });                    
                 }else{
                     res.status(200).send(user);
                     console.log('Нет прав доступа к этому ресурсу!');

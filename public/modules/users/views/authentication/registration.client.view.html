@@ -1,0 +1,120 @@
+<div class="modal-header">
+    <h3 class="modal-title">Регистрация нового пользователя</h3>
+</div>
+<div class="modal-body">
+    <form role="form" name="RegUserCtrl.registrationUserForm">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Общие данные:</h3>
+          </div>
+          <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="login">Логин</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="login" 
+                       placeholder="Введите свой логин" 
+                       ng-model="RegUserCtrl.user.login" 
+                       required>
+              </div>
+            </div> 
+
+            <div class="col-md-4">
+              <div class="form-group" ng-class="RegUserCtrl.verifyPassword">
+                <label for="password">Пароль</label>
+                <input type="password" 
+                       class="form-control" 
+                       id="password" 
+                       placeholder="Введите пароль" 
+                       ng-model="RegUserCtrl.user.password" 
+                       required>  
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group" ng-class="RegUserCtrl.verifyPassword">
+                <label for="repassword">Повторно пароль</label>
+                <input type="password" 
+                       class="form-control" 
+                       id="repassword" 
+                       placeholder="Повторно введите пароль" 
+                       ng-model="RegUserCtrl.user.repassword"  required>  
+              </div>
+            </div> 
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="surname">Фамилия</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="surname" 
+                       placeholder="Введите фамилию" 
+                       ng-model="RegUserCtrl.user.surname" 
+                       required> 
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="name" 
+                       placeholder="Введите имя" 
+                       ng-model="RegUserCtrl.user.name" 
+                       required>  
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="lastname">Отчество</label>
+                <input type="text" 
+                       class="form-control" 
+                       id="lastname" 
+                       placeholder="Введите отчество" 
+                       ng-model="RegUserCtrl.user.lastname">  
+               </div>
+            </div>
+          </div>
+            
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Информация</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+              <label for="email">Email</label>
+                <input type="email" 
+                       class="form-control" 
+                       id="email" 
+                       placeholder="Введите email" 
+                       ng-model="RegUserCtrl.user.email" 
+                       required>
+              </div>  
+
+              </div>
+              
+            </div>
+            </div>
+        </div>  
+    </form>        
+</div>
+<div class="modal-footer">
+    <div class="pull-left" ng-class="RegUserCtrl.messageClass">{{RegUserCtrl.message}}</div>
+    <button class="btn btn-primary" 
+            type="button" 
+            ng-click="RegUserCtrl.registrationUser()" 
+            ng-disabled="RegUserCtrl.registrationUserForm.$invalid">Регистрация</button>
+
+    <button class="btn btn-warning" 
+            type="button" 
+            ng-click="RegUserCtrl.cancel()">Отмена</button>
+</div>
