@@ -13,7 +13,6 @@
     "postinstall": "bower install --config.interactive=false"
   },
   "dependencies": {
-    "acl": "^0.4.7",
     "async": "^1.4.0",
     "body-parser": "^1.13.2",
     "browser-sync": "^2.9.3",
